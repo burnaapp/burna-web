@@ -55,7 +55,7 @@ const WAITLIST_API = "https://calshi-api-480109941557.us-central1.run.app";
   let confettiFired = false;
 
   const lvl = $("#lvl"), lvlNames = $$("#lvl-name b"), lvlPips = $$("#lvl-pips i"), lvlPts = $("#lvl-pts");
-  const LVL_TIERS = [2, 3, 4]; // ROOKIE, MOVER, BURNER
+  const LVL_TIERS = [2, 3, 4]; // ROOKIE, MOVER, CHARGER
   const LVL_TO = 520;
   let lvlStage = -1, lvlFired = false;
 
@@ -118,7 +118,7 @@ const WAITLIST_API = "https://calshi-api-480109941557.us-central1.run.app";
     if (won && active === 3 && !confettiFired && !reduced) { confettiFired = true; burst(); }
     if (!won) confettiFired = false;
 
-    // step 5: rank up, from ROOKIE through MOVER to BURNER
+    // step 5: rank up, from ROOKIE through MOVER to CHARGER
     const r = active === 4 ? p : 0;
     const lvlIdx = reduced ? 2 : r < 0.22 ? 0 : r < 0.5 ? 1 : 2;
     if (lvlIdx !== lvlStage) {
@@ -136,7 +136,7 @@ const WAITLIST_API = "https://calshi-api-480109941557.us-central1.run.app";
     }
     const fin = active === 4 && (reduced || r > 0.62);
     lvl.classList.toggle("fin", fin);
-    // Points stay inside the current rank's band: ROOKIE 100-199, MOVER 200-499, BURNER 500+.
+    // Points stay inside the current rank's band: ROOKIE 100-199, MOVER 200-499, CHARGER 500+.
     const BANDS = [[110, 195, 0, 0.22], [210, 490, 0.22, 0.5], [505, 520, 0.5, 0.62]];
     const [lo, hi, t0, t1] = BANDS[lvlIdx];
     const pts = reduced ? LVL_TO : lo + (hi - lo) * ease(clamp((r - t0) / (t1 - t0)));
