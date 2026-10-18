@@ -136,8 +136,8 @@ const WAITLIST_API = "https://calshi-api-480109941557.us-central1.run.app";
     }
     const fin = active === 4 && (reduced || r > 0.62);
     lvl.classList.toggle("fin", fin);
-    // Points stay inside the current rank's band: ROOKIE 100-199, MOVER 200-499, CHARGER 500+.
-    const BANDS = [[110, 195, 0, 0.22], [210, 490, 0.22, 0.5], [505, 520, 0.5, 0.62]];
+    // Points stay inside the current rank's band: ROOKIE 150-249, MOVER 250-499, CHARGER 500+.
+    const BANDS = [[160, 245, 0, 0.22], [255, 490, 0.22, 0.5], [505, 520, 0.5, 0.62]];
     const [lo, hi, t0, t1] = BANDS[lvlIdx];
     const pts = reduced ? LVL_TO : lo + (hi - lo) * ease(clamp((r - t0) / (t1 - t0)));
     lvlPts.textContent = Math.round(pts).toLocaleString("en-US");
