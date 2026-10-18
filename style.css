@@ -162,7 +162,7 @@ a{color:inherit}
 
 /* waitlist form */
 .wl{display:flex;gap:12px;justify-content:center;align-items:stretch;flex-wrap:wrap;max-width:640px;margin:0 auto}
-.wl input[type=email]{flex:1 1 260px;min-width:0;height:64px;padding:0 20px;background:var(--card);border:2px solid var(--line);color:#fff;font:600 19px var(--body);clip-path:polygon(0 0,100% 0,calc(100% - 14px) 100%,0 100%);outline:none;transition:border-color .2s}
+.wl input[type=email]{flex:1 1 260px;min-width:0;height:64px;padding:0 20px;background:var(--card);border:2px solid var(--line);color:#fff;font:600 19px var(--body);border-radius:6px;outline:none;transition:border-color .2s}
 .wl input[type=email]::placeholder{color:var(--muted)}
 .wl input[type=email]:focus{border-color:var(--yellow)}
 .wl .cta{border:0;cursor:pointer;height:64px;padding-top:0;padding-bottom:0;font-size:24px}
