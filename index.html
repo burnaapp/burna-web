@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calshi — Burn. Compete. Win.</title>
+<meta name="description" content="Calshi is a calorie challenge app. Join a pool, burn calories with your workouts, climb the leaderboard and win points.">
+<meta name="theme-color" content="#0A0A0B">
+<meta property="og:title" content="Calshi — Burn. Compete. Win.">
+<meta property="og:description" content="Join a pool. Burn calories. Climb the board.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="./" aria-label="Calshi home">CALSHI</a>
+  <a class="cta cta-sm" data-store-link href="#get">Get the app</a>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="slab slab-a" aria-hidden="true"></div>
+    <div class="slab slab-b" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <p class="eyebrow">CALORIE CHALLENGE POOLS</p>
+      <h1><span>BURN.</span><span class="y">COMPETE.</span><span>WIN.</span></h1>
+      <p class="lede">Join a pool with friends. Every workout from Apple Health counts toward one big calorie goal. Climb the leaderboard and take your share of the pot.</p>
+      <div class="hero-actions">
+        <a class="cta" data-store-link href="#get">Download for iPhone</a>
+        <a class="ghost" href="#story">See how it works ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="story" id="story">
+    <div class="stage">
+      <div class="phone-wrap">
+        <div class="phone" aria-hidden="true">
+          <div class="screen s0 on">
+            <div class="ob-bars"><i class="a"></i><i></i><i></i><i></i></div>
+            <div class="ob-words"><b>BURN.</b><b class="y">COMPETE.</b><b>WIN.</b></div>
+            <p class="ob-sub">Calorie pools with friends. Your workouts, your rank.</p>
+            <div class="btn">NEXT</div>
+          </div>
+
+          <div class="screen s1">
+            <h3 class="scr-title">POOLS</h3>
+            <div class="pcard"><div><b>5K BURN</b><small>STARTS IN 3D · 12 PLAYERS</small></div><div class="fee"><b>10</b><small>PTS TO JOIN</small></div></div>
+            <div class="pcard sel"><div><b>10K BURN</b><small>STARTS IN 3D · 48 PLAYERS</small></div><div class="fee"><b>20</b><small>PTS TO JOIN</small></div></div>
+            <div class="pcard"><div><b>15K BURN</b><small>STARTS IN 3D · 7 PLAYERS</small></div><div class="fee"><b>30</b><small>PTS TO JOIN</small></div></div>
+            <div class="btn join"><span class="j1">JOIN · 20 PTS</span><span class="j2">JOINED ✓</span></div>
+          </div>
+
+          <div class="screen s2">
+            <small class="muted">10K BURN</small>
+            <div class="bignum"><b id="kcal">0</b><span>KCAL<small>OF 10,000</small></span></div>
+            <div class="bar big"><i id="bar2"></i></div>
+            <div class="rowline"><span id="pct">0% DONE</span><span class="y">334 KCAL/DAY TO FINISH</span></div>
+            <div class="wk" aria-hidden="true">
+              <div class="workout"><span>RUN</span><b>+612</b></div>
+              <div class="workout"><span>SPIN</span><b>+480</b></div>
+              <div class="workout"><span>HIIT</span><b>+355</b></div>
+            </div>
+            <div class="tail"><span>YOUR RANK</span><b>#4 OF 48</b></div>
+          </div>
+
+          <div class="screen s3">
+            <small class="muted">10K BURN · FINAL</small>
+            <div class="rank"><b id="rank">#4</b><span>YOU WON</span></div>
+            <div class="board" id="board">
+              <div class="lrow" data-k="a"><em>1</em><span>Priya S.</span><b>9,410</b></div>
+              <div class="lrow" data-k="b"><em>2</em><span>Marcus T.</span><b>9,102</b></div>
+              <div class="lrow" data-k="me"><em>3</em><span>You</span><b>8,877</b></div>
+              <div class="lrow" data-k="d"><em>4</em><span>Jess L.</span><b>8,230</b></div>
+            </div>
+            <div class="prize"><small>PRIZE</small><b id="prize">0</b><span>PTS</span></div>
+            <div class="tail"><span>POT · 48 PLAYERS</span><b>960 PTS</b></div>
+            <canvas id="confetti" width="300" height="640"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <article class="step" data-step="0">
+        <p class="num">01</p>
+        <h2>OPEN. CONNECT. GO.</h2>
+        <p>Sign in with Apple, connect Apple Health, and you're in. Calshi only reads your workouts. It never writes to Health.</p>
+      </article>
+      <article class="step" data-step="1">
+        <p class="num">02</p>
+        <h2>PICK A POOL.</h2>
+        <p>Choose a pool and put in the entry points. Everyone in the pool chases the same calorie goal over the same few weeks. New accounts start with 100 points on us.</p>
+      </article>
+      <article class="step" data-step="2">
+        <p class="num">03</p>
+        <h2>MOVE. IT ALL COUNTS.</h2>
+        <p>Runs, rides, classes, lifting. Every workout after the pool starts adds to your total. Watch the bar fill and see exactly how many calories a day you need to finish.</p>
+      </article>
+      <article class="step" data-step="3">
+        <p class="num">04</p>
+        <h2>CLIMB. COLLECT.</h2>
+        <p>The leaderboard updates as you and your friends train. When the pool ends, the top finishers split the pot of points.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feat"><h3>FAIR BY DESIGN</h3><p>Scores come straight from Apple Health workouts, with a dispute button for anything that looks off.</p></div>
+    <div class="feat"><h3>MADE FOR FRIENDS</h3><p>Share an invite code and start a pool together, or join an official one.</p></div>
+    <div class="feat"><h3>NO CASH, NO CATCH</h3><p>Pools run on points. Points have no cash value and can't be cashed out.</p></div>
+  </section>
+
+  <section class="get" id="get">
+    <h2>READY WHEN YOU ARE.</h2>
+    <p>Calshi is coming to the App Store for iPhone.</p>
+    <a class="cta cta-lg" data-store-link href="#get" id="store-btn">Download on the App Store</a>
+    <small id="store-note"></small>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>© 2026 Calshi</span>
+  <nav><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="support.html">Support</a></nav>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
