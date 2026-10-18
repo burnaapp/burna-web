@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@500;600&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
@@ -120,9 +120,9 @@
     <h2>BE FIRST IN.</h2>
     <p>Calshi is launching soon on iPhone. Leave your email and we'll tell you the moment it's ready.</p>
     <form class="wl" id="wl" novalidate>
-      <label class="sr" for="wl-email">Email address</label>
+      <label class="sr" for="wl-email" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">Email address</label>
       <input id="wl-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required>
-      <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;overflow:hidden">
       <button class="cta cta-lg" type="submit" id="wl-btn">Join the waitlist</button>
     </form>
     <small id="wl-msg" role="status" aria-live="polite"></small>
@@ -135,6 +135,6 @@
   <nav><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="support.html">Support</a></nav>
 </footer>
 
-<script src="app.js"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>
