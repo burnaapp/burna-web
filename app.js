@@ -28,12 +28,12 @@ const WAITLIST_API = "https://calshi-api-480109941557.us-central1.run.app";
         const res = await fetch(WAITLIST_API + "/v1/waitlist", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, website: String(data.get("website") || ""), source: "calshi.fit" }),
+          body: JSON.stringify({ email, website: String(data.get("website") || ""), source: "burna.win" }),
         });
         if (res.status === 429) throw new Error("Too many tries. Please wait a minute and try again.");
         if (!res.ok) throw new Error("Something went wrong. Please try again.");
         form.reset();
-        msg.textContent = "You're on the list. We'll email you when Calshi launches.";
+        msg.textContent = "You're on the list. We'll email you when Burna launches.";
         btn.textContent = "You're in ✓";
       } catch (err) {
         msg.className = "err";
