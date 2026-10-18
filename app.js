@@ -79,8 +79,11 @@ const WAITLIST_API = "https://calshi-api-480109941557.us-central1.run.app";
     });
     steps.forEach((el, i) => el.classList.toggle("on", i === active));
     screens.forEach((el, i) => el.classList.toggle("on", i === active));
+    // On phones the mockup scales to the room the pinned stage actually has (browser bars change it).
+    const stage = $(".stage");
+    const fit = innerWidth <= 860 && stage ? Math.min(0.62, Math.max(0.3, (stage.clientHeight - 84) / 660)) : 1;
     phone.style.transform = innerWidth <= 860
-      ? `scale(.52) rotate(${-2 + active}deg)` : `rotate(${-2 + active * 1.4}deg)`;
+      ? `scale(${fit.toFixed(3)}) rotate(${-2 + active}deg)` : `rotate(${-2 + active * 1.4}deg)`;
 
     // step 2: join
     s1.classList.toggle("joined", active === 1 && p > 0.55);

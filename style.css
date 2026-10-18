@@ -144,7 +144,7 @@ a{color:inherit}
 /* mobile */
 @media (max-width:860px){
   .story{display:block;padding:0}
-  .stage{position:sticky;top:0;z-index:2;height:48svh;overflow:hidden;background:var(--ink);box-shadow:0 18px 28px 6px var(--ink)}
+  .stage{position:sticky;top:0;z-index:2;height:max(48svh,360px);overflow:hidden;background:var(--ink);box-shadow:0 18px 28px 6px var(--ink)}
   .phone-wrap{position:static;height:100%;align-items:flex-start;padding-top:70px}
   .phone{transform:scale(.52) rotate(-2deg);transform-origin:top center}
   .steps{padding:0 24px}
