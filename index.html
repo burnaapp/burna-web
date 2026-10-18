@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@500;600&display=swap">
-<link rel="stylesheet" href="style.css?v=8">
+<link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
 
@@ -61,10 +61,10 @@
 
           <div class="screen s1">
             <h3 class="scr-title">POOLS</h3>
-            <div class="pcard"><div><b>5K BURN</b><small>STARTS IN 3D · 12 PLAYERS</small></div><div class="fee"><b>10</b><small>PTS TO JOIN</small></div></div>
-            <div class="pcard sel"><div><b>10K BURN</b><small>STARTS IN 3D · 48 PLAYERS</small></div><div class="fee"><b>20</b><small>PTS TO JOIN</small></div></div>
-            <div class="pcard"><div><b>15K BURN</b><small>STARTS IN 3D · 7 PLAYERS</small></div><div class="fee"><b>50</b><small>PTS TO JOIN</small></div></div>
-            <div class="btn join"><span class="j1">JOIN · 20 PTS</span><span class="j2">JOINED ✓</span></div>
+            <div class="pcard"><div><b>5K BURN</b><small>STARTS IN 3D · 12 PLAYERS</small></div><div class="fee"><b>50</b><small>PTS TO JOIN</small></div></div>
+            <div class="pcard sel"><div><b>10K BURN</b><small>STARTS IN 3D · 48 PLAYERS</small></div><div class="fee"><b>100</b><small>PTS TO JOIN</small></div></div>
+            <div class="pcard"><div><b>15K BURN</b><small>STARTS IN 3D · 7 PLAYERS</small></div><div class="fee"><b>200</b><small>PTS TO JOIN</small></div></div>
+            <div class="btn join"><span class="j1">JOIN · 100 PTS</span><span class="j2">JOINED ✓</span></div>
           </div>
 
           <div class="screen s2">
@@ -90,8 +90,21 @@
               <div class="lrow" data-k="d"><em>4</em><span>Jess L.</span><b>8,230</b></div>
             </div>
             <div class="prize"><small>PRIZE</small><b id="prize">0</b><span>PTS</span></div>
-            <div class="tail"><span>POT · 48 PLAYERS</span><b>960 PTS</b></div>
+            <div class="tail"><span>POT · 48 PLAYERS</span><b>4,800 PTS</b></div>
             <canvas id="confetti" width="300" height="640"></canvas>
+          </div>
+
+          <div class="screen s4" id="lvl">
+            <div class="glow"></div>
+            <small class="muted">RANK UP</small>
+            <p class="lvl-head">LEVEL UP</p>
+            <div class="lvl-name" id="lvl-name">
+              <b data-c="#2F80FF">ROOKIE</b><b data-c="#22D3EE">MOVER</b><b data-c="#2EA854">BURNER</b>
+            </div>
+            <div class="lvl-pips" id="lvl-pips"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <p class="lvl-pts"><b id="lvl-pts">110</b> PTS</p>
+            <div class="btn">SHARE MY RANK</div>
+            <canvas id="lvlfx" width="300" height="640"></canvas>
           </div>
         </div>
       </div>
@@ -118,6 +131,12 @@
         <h2>WIN THE POT.</h2>
         <p>The leaderboard updates as you and your friends train. When the pool ends, everyone who hit the goal splits the pot. Miss it and your entry is gone. Your rank rises and falls with your points.</p>
       </article>
+      <article class="step" data-step="4">
+        <p class="num">05</p>
+        <h2>RANK UP.</h2>
+        <p>Your rank follows your points. Win a pool and watch it climb, from RECRUIT all the way to BURNA. Collect badges on the way and share your new rank with one tap. Run low on points? Free daily challenges top you back up.</p>
+        <ol class="mini-ladder" aria-label="Ranks and the points each starts at"><li style="--c:#FAFC4D"><b>RECRUIT</b><span>0</span></li><li style="--c:#2F80FF"><b>ROOKIE</b><span>100</span></li><li style="--c:#22D3EE"><b>MOVER</b><span>200</span></li><li style="--c:#2EA854"><b>BURNER</b><span>500</span></li><li style="--c:#8847FF"><b>GRINDER</b><span>1,000</span></li><li style="--c:#D32CE6"><b>ATHLETE</b><span>2,000</span></li><li style="--c:#EB4B4B"><b>BEAST</b><span>5,000</span></li><li style="--c:#E4AE39"><b>BURNA</b><span>10,000</span></li></ol>
+      </article>
     </div>
   </section>
 
@@ -125,13 +144,6 @@
     <div class="feat"><h3>FAIR BY DESIGN</h3><p>Scores come straight from Apple Health workouts, with a dispute button for anything that looks off.</p></div>
     <div class="feat"><h3>HOST YOUR OWN</h3><p>Start a pool, share the invite, and keep 10% of the pot in points. You join free.</p></div>
     <div class="feat"><h3>NO CASH, NO CATCH</h3><p>Pools run on points. Points can't be bought, sold or cashed out. Show off your rank, not your wallet.</p></div>
-  </section>
-
-  <section class="ranks" id="ranks">
-    <h2>CLIMB THE RANKS.</h2>
-    <p>Your rank follows your points. Win pools to move up, lose and you slide back down. Everyone starts at 100 PTS.</p>
-    <ol class="ladder"><li style="--c:#FAFC4D"><b>RECRUIT</b><span>0 PTS</span></li><li style="--c:#2F80FF"><b>ROOKIE</b><span>100 PTS</span></li><li style="--c:#22D3EE"><b>MOVER</b><span>200 PTS</span></li><li style="--c:#2EA854"><b>BURNER</b><span>500 PTS</span></li><li style="--c:#8847FF"><b>GRINDER</b><span>1,000 PTS</span></li><li style="--c:#D32CE6"><b>ATHLETE</b><span>2,000 PTS</span></li><li style="--c:#EB4B4B"><b>BEAST</b><span>5,000 PTS</span></li><li style="--c:#E4AE39"><b>BURNA</b><span>10,000 PTS</span></li></ol>
-    <p class="badges-line">Earn badges along the way: <b>FIRST PUSH</b>, <b>HAT TRICK</b>, <b>CHAMPION</b>, <b>50K FURNACE</b> and more. Share your rank with one tap.</p>
   </section>
 
   <section class="get" id="get">
@@ -153,6 +165,6 @@
   <nav><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="support.html">Support</a></nav>
 </footer>
 
-<script src="app.js?v=8"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>

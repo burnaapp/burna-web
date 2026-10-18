@@ -54,6 +54,11 @@ const WAITLIST_API = "https://calshi-api-480109941557.us-central1.run.app";
   const names = ["a", "b", "d", "me"]; // order at start: you are 4th
   let confettiFired = false;
 
+  const lvl = $("#lvl"), lvlNames = $$("#lvl-name b"), lvlPips = $$("#lvl-pips i"), lvlPts = $("#lvl-pts");
+  const LVL_TIERS = [2, 3, 4]; // ROOKIE, MOVER, BURNER
+  const LVL_TO = 520;
+  let lvlStage = -1, lvlFired = false;
+
   const GOAL = 10000, FINAL_KCAL = 5180, DAYS_LEFT = 16, PRIZE = 480;
 
   const MY_SCORE = [8100, 8400, 9250, 9520]; // your total at rank 4, 3, 2, 1
@@ -112,6 +117,32 @@ const WAITLIST_API = "https://calshi-api-480109941557.us-central1.run.app";
     prizeEl.textContent = (won ? PRIZE : 0).toLocaleString("en-US");
     if (won && active === 3 && !confettiFired && !reduced) { confettiFired = true; burst(); }
     if (!won) confettiFired = false;
+
+    // step 5: rank up, from ROOKIE through MOVER to BURNER
+    const r = active === 4 ? p : 0;
+    const lvlIdx = reduced ? 2 : r < 0.22 ? 0 : r < 0.5 ? 1 : 2;
+    if (lvlIdx !== lvlStage) {
+      lvlStage = lvlIdx;
+      lvlNames.forEach((el, i) => {
+        el.style.setProperty("--n", el.dataset.c);
+        el.classList.toggle("cur", i === lvlIdx);
+        el.classList.toggle("past", i < lvlIdx);
+      });
+      lvl.style.setProperty("--c", lvlNames[lvlIdx].dataset.c);
+      lvlPips.forEach((el, i) => {
+        el.classList.toggle("on", i < LVL_TIERS[lvlIdx]);
+        el.classList.toggle("here", i === LVL_TIERS[lvlIdx] - 1);
+      });
+    }
+    const fin = active === 4 && (reduced || r > 0.62);
+    lvl.classList.toggle("fin", fin);
+    // Points stay inside the current rank's band: ROOKIE 100-199, MOVER 200-499, BURNER 500+.
+    const BANDS = [[110, 195, 0, 0.22], [210, 490, 0.22, 0.5], [505, 520, 0.5, 0.62]];
+    const [lo, hi, t0, t1] = BANDS[lvlIdx];
+    const pts = reduced ? LVL_TO : lo + (hi - lo) * ease(clamp((r - t0) / (t1 - t0)));
+    lvlPts.textContent = Math.round(pts).toLocaleString("en-US");
+    if (fin && !lvlFired && !reduced) { lvlFired = true; lvlBurst(lvlNames[2].dataset.c); }
+    if (active !== 4) lvlFired = false;
   }
 
   // Confetti (canvas, no libraries)
@@ -135,6 +166,36 @@ const WAITLIST_API = "https://calshi-api-480109941557.us-central1.run.app";
       });
       parts = parts.filter((p) => p.y < cv.height + 30);
       if (parts.length) raf = requestAnimationFrame(tick);
+    };
+    tick();
+  }
+
+  // Level-up burst: a ring and slanted shards in the new rank's color.
+  const fx = $("#lvlfx"), fxc = fx.getContext("2d");
+  let shards = [], ring = 0, fxRaf = 0;
+  function lvlBurst(color) {
+    shards = Array.from({ length: 34 }, (_, i) => {
+      const ang = (i / 34) * Math.PI * 2 + (Math.random() - 0.5) * 0.25, sp = Math.random() * 5 + 3;
+      return { x: fx.width / 2, y: fx.height * 0.36, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp, w: Math.random() * 14 + 8,
+               r: Math.random() * 6, vr: (Math.random() - 0.5) * 0.4, life: 1, c: i % 3 === 0 ? "#ffffff" : color };
+    });
+    ring = 0;
+    cancelAnimationFrame(fxRaf);
+    const tick = () => {
+      fxc.clearRect(0, 0, fx.width, fx.height);
+      ring += 5;
+      if (ring < 260) {
+        fxc.strokeStyle = color; fxc.globalAlpha = 1 - ring / 260; fxc.lineWidth = 5;
+        fxc.beginPath(); fxc.arc(fx.width / 2, fx.height * 0.36, ring, 0, Math.PI * 2); fxc.stroke();
+      }
+      shards.forEach((s) => {
+        s.vx *= 0.985; s.vy *= 0.985; s.x += s.vx; s.y += s.vy; s.r += s.vr; s.life -= 0.012;
+        fxc.save(); fxc.globalAlpha = Math.max(s.life, 0); fxc.translate(s.x, s.y); fxc.rotate(s.r);
+        fxc.fillStyle = s.c; fxc.fillRect(-s.w / 2, -s.w * 0.17, s.w, s.w * 0.34); fxc.restore();
+      });
+      shards = shards.filter((s) => s.life > 0);
+      if (shards.length || ring < 260) fxRaf = requestAnimationFrame(tick);
+      else fxc.clearRect(0, 0, fx.width, fx.height);
     };
     tick();
   }
