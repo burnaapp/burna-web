@@ -159,3 +159,17 @@ a{color:inherit}
 
 .screen .tail{margin-top:auto;display:flex;justify-content:space-between;align-items:center;background:var(--card);padding:12px 14px;font-family:var(--disp);font-weight:700;font-size:16px;letter-spacing:.08em;clip-path:polygon(0 0,100% 0,calc(100% - 12px) 100%,0 100%)}
 .screen .tail b{color:var(--yellow);font-size:22px}
+
+/* waitlist form */
+.wl{display:flex;gap:12px;justify-content:center;align-items:stretch;flex-wrap:wrap;max-width:640px;margin:0 auto}
+.wl input[type=email]{flex:1 1 260px;min-width:0;height:64px;padding:0 20px;background:var(--card);border:2px solid var(--line);color:#fff;font:600 19px var(--body);clip-path:polygon(0 0,100% 0,calc(100% - 14px) 100%,0 100%);outline:none;transition:border-color .2s}
+.wl input[type=email]::placeholder{color:var(--muted)}
+.wl input[type=email]:focus{border-color:var(--yellow)}
+.wl .cta{border:0;cursor:pointer;height:64px;padding-top:0;padding-bottom:0;font-size:24px}
+.wl .cta:disabled{opacity:.6;cursor:default}
+.wl .hp,.sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+#wl-msg{display:block;min-height:22px;margin-top:16px;font-size:16px;color:var(--yellow);font-weight:600}
+#wl-msg.err{color:#ff7a70}
+.wl-fine{display:block;margin-top:6px;color:var(--muted);font-size:13px}
+.wl-fine a{color:var(--muted)}
+@media (max-width:860px){.wl input[type=email],.wl .cta{width:100%;flex:1 1 100%}}

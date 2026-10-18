@@ -1,5 +1,6 @@
 // Set this to the App Store (or TestFlight) link once it exists. While empty, buttons say "coming soon".
 const STORE_URL = "";
+const WAITLIST_API = "https://calshi-api-480109941557.us-central1.run.app";
 
 (function () {
   const $ = (s, el = document) => el.querySelector(s);
@@ -8,13 +9,39 @@ const STORE_URL = "";
   const ease = (t) => 1 - Math.pow(1 - t, 3);
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Store buttons
+  // Header and hero buttons: send people to the waitlist until there is a store link.
   $$("[data-store-link]").forEach((a) => {
-    if (STORE_URL) { a.href = STORE_URL; a.target = "_blank"; a.rel = "noopener"; }
-    else if (a.id === "store-btn") { a.textContent = "Coming soon to the App Store"; }
+    if (STORE_URL) { a.href = STORE_URL; a.target = "_blank"; a.rel = "noopener"; a.textContent = "Download for iPhone"; }
   });
-  const note = $("#store-note");
-  if (note && !STORE_URL) note.textContent = "Launching to friends first. Ask for a TestFlight invite.";
+
+  // Waitlist form
+  const form = $("#wl"), msg = $("#wl-msg"), btn = $("#wl-btn");
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const email = String(data.get("email") || "").trim();
+      msg.className = "";
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { msg.className = "err"; msg.textContent = "Please enter a valid email."; return; }
+      btn.disabled = true; msg.textContent = "Adding you…";
+      try {
+        const res = await fetch(WAITLIST_API + "/v1/waitlist", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, website: String(data.get("website") || ""), source: "calshi.fit" }),
+        });
+        if (res.status === 429) throw new Error("Too many tries. Please wait a minute and try again.");
+        if (!res.ok) throw new Error("Something went wrong. Please try again.");
+        form.reset();
+        msg.textContent = "You're on the list. We'll email you when Calshi launches.";
+        btn.textContent = "You're in ✓";
+      } catch (err) {
+        msg.className = "err";
+        msg.textContent = err.message || "Something went wrong. Please try again.";
+        btn.disabled = false;
+      }
+    });
+  }
 
   const steps = $$(".step");
   const screens = $$(".screen");

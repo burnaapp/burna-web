@@ -19,7 +19,7 @@
 
 <header class="nav">
   <a class="brand" href="./" aria-label="Calshi home">CALSHI</a>
-  <a class="cta cta-sm" data-store-link href="#get">Get the app</a>
+  <a class="cta cta-sm" data-store-link href="#get">Join waitlist</a>
 </header>
 
 <main>
@@ -31,7 +31,7 @@
       <h1><span>BURN.</span><span class="y">COMPETE.</span><span>WIN.</span></h1>
       <p class="lede">Join a pool with friends. Every workout from Apple Health counts toward one big calorie goal. Climb the leaderboard and take your share of the pot.</p>
       <div class="hero-actions">
-        <a class="cta" data-store-link href="#get">Download for iPhone</a>
+        <a class="cta" data-store-link href="#get">Join the waitlist</a>
         <a class="ghost" href="#story">See how it works ↓</a>
       </div>
     </div>
@@ -117,10 +117,16 @@
   </section>
 
   <section class="get" id="get">
-    <h2>READY WHEN YOU ARE.</h2>
-    <p>Calshi is coming to the App Store for iPhone.</p>
-    <a class="cta cta-lg" data-store-link href="#get" id="store-btn">Download on the App Store</a>
-    <small id="store-note"></small>
+    <h2>BE FIRST IN.</h2>
+    <p>Calshi is launching soon on iPhone. Leave your email and we'll tell you the moment it's ready.</p>
+    <form class="wl" id="wl" novalidate>
+      <label class="sr" for="wl-email">Email address</label>
+      <input id="wl-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required>
+      <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="cta cta-lg" type="submit" id="wl-btn">Join the waitlist</button>
+    </form>
+    <small id="wl-msg" role="status" aria-live="polite"></small>
+    <small class="wl-fine">One email when we launch. No spam. <a href="privacy.html">Privacy</a></small>
   </section>
 </main>
 
