@@ -18,14 +18,16 @@
 <header class="nav"><a class="brand" href="./">BURNA</a><a class="cta cta-sm" href="./">Home</a></header>
 <main class="doc">
 <h1>PRIVACY POLICY</h1>
-<p class="upd">Last updated: [publish date]</p>
+<p class="upd">Last updated: October 24, 2026</p>
 <p>Burna is a calorie challenge app. You join leagues, your workouts count toward a calorie goal, and you compete on a leaderboard. This policy explains what we collect, why, and the choices you have.</p>
 
 <h2>What we collect</h2>
 <ul>
-<li><b>Account information.</b> Your name and email address, and a unique account ID, from Sign in with Apple, Google or email sign-in.</li>
+<li><b>Account information.</b> Your name and email address, and a unique account ID, from Sign in with Apple, Google or email sign-in. If you sign up with email and a password, we send you a link to confirm your address.</li>
 <li><b>Workout data from Apple Health.</b> With your permission, Burna reads workouts (type, start and end time, and active calories) to score the leagues you have joined. Burna never writes to Apple Health. We send the server your calorie total for each league. For a friends league (one you join by invite), we also send each workout that counts toward it: its type, start and end time, and active calories. We never send heart rate, routes, or any other Health data. If you dispute a workout, we receive the details you choose to submit about it.</li>
 <li><b>League activity.</b> The leagues you join or create, your calorie totals, your rank, and your points balance and history.</li>
+<li><b>Notification token.</b> If you allow notifications, a token that lets us send them to your device. We use it only to deliver notifications you have not turned off.</li>
+<li><b>App verification.</b> Each request from the app carries a token from Firebase App Check (using Apple App Attest) that shows it comes from the genuine Burna app on a real device. It holds no personal content, and we use it only to keep the service secure and fair.</li>
 <li><b>Basic technical data.</b> Standard logs our hosting provider keeps (such as IP address and request time) for security and reliability.</li>
 </ul>
 
@@ -36,7 +38,7 @@
 <ul>
 <li>To run the app: sign you in, score leagues, show leaderboards and update your points.</li>
 <li>To keep contests fair: review disputed workouts and act on abuse.</li>
-<li>To keep the service secure and working.</li>
+<li>To keep the service secure and working, including blocking requests that do not come from the real app.</li>
 </ul>
 <p>We do not sell your data. We do not use it for advertising, and we do not track you across other companies' apps or websites.</p>
 
@@ -44,7 +46,7 @@
 <p>Other players in a league can see your display name and your calorie total for that league. In a friends league, the other players can also see the workouts that count toward it: the date, the type of workout, and its calories. Players in public and official leagues never see your workouts. Nobody can see your other Apple Health data or your email address.</p>
 
 <h2>Services we rely on</h2>
-<p>Burna runs on Google Cloud and Firebase (authentication and database, hosted in the United States). Sign in with Apple and Google Sign-In are provided by Apple and Google. These providers process data on our behalf under their own terms.</p>
+<p>Burna runs on Google Cloud and Firebase (authentication and database, hosted in the United States). Notifications are delivered through Firebase Cloud Messaging and the Apple Push Notification service, and app verification uses Firebase App Check with Apple App Attest. Sign in with Apple and Google Sign-In are provided by Apple and Google. These providers process data on our behalf under their own terms.</p>
 
 <h2>Retention and deletion</h2>
 <p>We keep your data while your account is active. You can delete your account from inside the app (Profile, then Delete account). This removes your profile, points and league participation from our systems. Some league results may remain in anonymous form so other players' leaderboards stay correct. You can also email us at <a href="mailto:support@burna.win">support@burna.win</a>.</p>
