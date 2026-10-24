@@ -1,6 +1,6 @@
 // Set this to the App Store (or TestFlight) link once it exists. While empty, buttons say "coming soon".
 const STORE_URL = "";
-const WAITLIST_API = "https://calshi-api-480109941557.us-central1.run.app";
+const WAITLIST_API = "https://burna-api-735657443254.us-central1.run.app";
 
 (function () {
   const $ = (s, el = document) => el.querySelector(s);
