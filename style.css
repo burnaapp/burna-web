@@ -70,7 +70,7 @@ a{color:inherit}
 .screen.on .ob-words b:nth-child(3){animation-delay:.24s}
 .ob-sub{color:var(--muted);font-size:14px;margin-top:14px}
 
-/* s1 pools */
+/* s1 leagues */
 .pcard{display:flex;justify-content:space-between;align-items:flex-start;background:var(--card);padding:12px 14px;margin-bottom:8px;border-left:4px solid var(--line);clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%);transition:border-color .4s,transform .5s var(--ease)}
 .pcard b{font-family:var(--disp);font-weight:800;font-size:21px;display:block;line-height:1.05}
 .pcard .fee{text-align:right;margin-right:12px}
