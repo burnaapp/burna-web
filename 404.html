@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Burna</title>
+<meta property="og:title" content="Follow me on Burna">
+<meta property="og:description" content="Burn calories, climb the leaderboard, win the pot.">
+<meta property="og:image" content="https://burna.win/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:site_name" content="Burna">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0A0A0B">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@500;600&display=swap">
+<link rel="stylesheet" href="/style.css?v=7">
+</head>
+<body>
+<header class="nav"><a class="brand" href="/">BURNA</a><a class="cta cta-sm" href="/">Home</a></header>
+<main class="doc">
+<!-- GitHub Pages serves this page for every unknown path, so it is also the page for a profile link,
+     burna.win/u/{code}, opened without the app. It shows nothing about the player. -->
+<div id="profile" hidden>
+<h1>FOLLOW ME ON BURNA</h1>
+<p>With Burna on your iPhone, this link opens my profile so you can follow me.</p>
+<p><a class="cta" id="open" href="https://apps.apple.com/app/id6826509642">Open in Burna</a></p>
+<p>No Burna yet? <a href="https://apps.apple.com/app/id6826509642">Get it on the App Store</a>, then open this link again.</p>
+</div>
+<div id="missing">
+<h1>PAGE NOT FOUND</h1>
+<p>That page doesn't exist. <a href="/">Go to the Burna home page.</a></p>
+</div>
+</main>
+<footer class="foot"><span>© 2026 Burna</span><nav><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/support.html">Support</a></nav></footer>
+<script>
+  var m = location.pathname.match(/^\/u\/([A-Za-z0-9]{7})\/?$/);
+  if (m) {
+    document.title = 'Follow me on Burna';
+    document.getElementById('missing').hidden = true;
+    document.getElementById('profile').hidden = false;
+    // An installed app opens the link itself. This button is for when it didn't, such as in another app's browser.
+    document.getElementById('open').href = 'burna://profile/' + m[1];
+  }
+</script>
+</body>
+</html>

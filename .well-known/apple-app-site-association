@@ -4,7 +4,7 @@
       {
         "appIDs": ["46YWYDCA3H.com.hemenduroy.Burna.staging"],
         "components": [
-          { "/": "/u/*", "comment": "A player's profile: /u/?id=<player>" }
+          { "/": "/u/*", "comment": "A player's profile: /u/{code}" }
         ]
       }
     ]
