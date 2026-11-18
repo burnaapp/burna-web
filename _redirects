@@ -1,0 +1,3 @@
+# Cloudflare Pages: a profile link, burna.win/u/{code}, serves the profile page with a 200, so message apps show its
+# preview. The target is outside /u/ so the rule can't loop.
+/u/*  /profile-link  200
