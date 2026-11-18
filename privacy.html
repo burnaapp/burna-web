@@ -29,6 +29,7 @@
 <li><b>League activity.</b> The leagues you join or create, your calorie totals, your rank, and your points balance and history.</li>
 <li><b>Notification token.</b> If you allow notifications, a token that lets us send them to your device. We use it only to deliver notifications you have not turned off.</li>
 <li><b>App verification.</b> Each request from the app carries a token from Firebase App Check (using Apple App Attest) that shows it comes from the genuine Burna app on a real device. It holds no personal content, and we use it only to keep the service secure and fair.</li>
+<li><b>Crash reports.</b> If the app crashes, it sends a crash report through Firebase Crashlytics: where in the app it went wrong, your device model, iOS version and app version. Crash reports are not linked to your account, and Crashlytics keeps them for 90 days. We use them only to fix bugs.</li>
 <li><b>Basic technical data.</b> Standard logs our hosting provider keeps (such as IP address and request time) for security and reliability.</li>
 </ul>
 
@@ -47,7 +48,7 @@
 <p>Other players in a league can see your display name and your calorie total for that league. They can also see the workouts that count toward that league: the date, the type of workout, and its calories. Nobody can see your other Apple Health data or your email address. Reports go only to the Burna team, never to the person reported.</p>
 
 <h2>Services we rely on</h2>
-<p>Burna runs on Google Cloud and Firebase (authentication and database, hosted in the United States). Notifications are delivered through Firebase Cloud Messaging and the Apple Push Notification service, and app verification uses Firebase App Check with Apple App Attest. Sign in with Apple and Google Sign-In are provided by Apple and Google. These providers process data on our behalf under their own terms.</p>
+<p>Burna runs on Google Cloud and Firebase (authentication and database, hosted in the United States). Notifications are delivered through Firebase Cloud Messaging and the Apple Push Notification service, app verification uses Firebase App Check with Apple App Attest, and crash reports go to Firebase Crashlytics. Sign in with Apple and Google Sign-In are provided by Apple and Google. These providers process data on our behalf under their own terms.</p>
 
 <h2>Retention and deletion</h2>
 <p>We keep your data while your account is active. You can delete your account from inside the app (Profile, then Delete account). This removes your profile, points, league participation, shared workouts and the reports you sent from our systems. Some league results may remain in anonymous form so other players' leaderboards stay correct. You can also email us at <a href="mailto:support@burna.win">support@burna.win</a>.</p>
