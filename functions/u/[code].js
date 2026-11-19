@@ -44,7 +44,6 @@ export async function onRequestGet({ params, request, env }) {
   return new HTMLRewriter()
     .on('title', new SetContent(null, title))
     .on('meta[property="og:title"]', new SetContent('content', title))
-    .on('meta[property="og:description"]', new SetContent('content', `Follow ${name} on Burna, the calorie league app.`))
     .on('h1', new SetContent(null, `FOLLOW ${name.toUpperCase()} ON BURNA`))
     .transform(page);
 }
