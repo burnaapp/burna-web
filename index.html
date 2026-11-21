@@ -71,10 +71,16 @@
           </div>
 
           <div class="screen s2">
-            <small class="muted">5K BURN</small>
-            <div class="bignum"><b id="kcal">0</b><span>KCAL<small>OF 5,000</small></span></div>
-            <div class="bar big"><i id="bar2"></i></div>
-            <div class="rowline"><span id="pct">0% DONE</span><span class="y">714 KCAL/DAY TO FINISH</span></div>
+            <small class="muted">TODAY</small>
+            <div class="dial" aria-hidden="true">
+              <svg viewBox="0 0 200 200">
+                <circle class="trk" cx="100" cy="100" r="88"/>
+                <circle class="trk" cx="100" cy="100" r="68"/>
+                <circle id="ringOut" class="rg c" cx="100" cy="100" r="88" pathLength="100"/>
+                <circle id="ringIn" class="rg y" cx="100" cy="100" r="68" pathLength="100"/>
+              </svg>
+              <div class="dc"><b id="kcal">0</b><span>KCAL TODAY</span><em id="pct">NEED 450</em></div>
+            </div>
             <div class="wk" aria-hidden="true">
               <div class="workout"><span>RUN</span><b>+612</b></div>
               <div class="workout"><span>SPIN</span><b>+480</b></div>
@@ -131,7 +137,7 @@
       <article class="step" data-step="2">
         <p class="num">03</p>
         <h2>MOVE. IT ALL COUNTS.</h2>
-        <p>Runs, rides, classes, lifting. Every real workout after the league starts adds to your total. Watch the bar fill and see exactly how many calories a day you need to finish.</p>
+        <p>Runs, rides, classes, lifting. Every real workout after the league starts adds to your total. Watch the dial fill and see exactly how many calories you still need today.</p>
       </article>
       <article class="step" data-step="3">
         <p class="num">04</p>

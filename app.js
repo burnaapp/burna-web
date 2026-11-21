@@ -10,7 +10,7 @@
   const screens = $$(".screen");
   const phone = $(".phone");
   const s1 = $(".s1");
-  const kcalEl = $("#kcal"), barEl = $("#bar2"), pctEl = $("#pct");
+  const kcalEl = $("#kcal"), pctEl = $("#pct"), ringIn = $("#ringIn"), ringOut = $("#ringOut");
   const workouts = $$(".workout");
   const prizeEl = $("#prize"), rankEl = $("#rank");
   const rows = Object.fromEntries($$(".lrow").map((r) => [r.dataset.k, r]));
@@ -58,12 +58,13 @@
 
     // step 3: progress
     const e = reduced ? 1 : ease(clamp((active === 2 ? p : active > 2 ? 1 : 0) / 0.85));
-    const kcal = Math.round(FINAL_KCAL * e);
+    const DAY_GOAL = 450, DAY_KCAL = 340;
+    const kcal = Math.round(DAY_KCAL * e);
     kcalEl.textContent = kcal.toLocaleString("en-US");
-    barEl.style.width = (kcal / GOAL * 100).toFixed(1) + "%";
-    pctEl.textContent = Math.round(kcal / GOAL * 100) + "% DONE";
-    const pace = Math.round((GOAL - kcal) / DAYS_LEFT);
-    $(".rowline .y").textContent = pace + " KCAL/DAY TO FINISH";
+    const need = Math.max(0, DAY_GOAL - kcal);
+    pctEl.textContent = need ? "NEED " + need : "GOAL HIT";
+    ringIn.style.strokeDasharray = (kcal / DAY_GOAL * 100).toFixed(1) + " 100";
+    ringOut.style.strokeDasharray = (Math.min(1, kcal / 500) * 100 * 0.62).toFixed(1) + " 100";
     [0.18, 0.42, 0.66].forEach((t, i) => workouts[i].classList.toggle("in", (active === 2 && p > t) || active > 2));
 
     // step 4: win
