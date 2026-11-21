@@ -210,6 +210,8 @@ a{color:inherit}
 @media(max-width:560px){.mini-ladder{grid-template-columns:repeat(2,auto)}}
 
 .hk-line{display:flex;align-items:center;gap:12px;margin-top:22px;color:var(--muted);font-size:16px;max-width:520px;animation:rise .9s var(--ease) .75s both}
-.hk{flex:none;border-radius:7px}
-.cta:has(.as){display:inline-flex;align-items:center;gap:.5em}
-.as{width:1.3em;height:1.3em;flex:none}
+.hk-line img{flex:none;height:44px;width:auto}
+.badge{display:inline-block;line-height:0;transition:transform .25s var(--ease)}
+.badge:hover{transform:translateY(-3px)}
+.badge img{display:block;height:56px;width:auto}
+.badge-lg img{height:72px}
