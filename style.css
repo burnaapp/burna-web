@@ -176,7 +176,7 @@ a{color:inherit}
 
 
 /* rank-up screen and ladder chips */
-.s4{align-items:center;text-align:center;overflow:hidden;--c:#2F80FF}
+.s4{align-items:center;text-align:center;overflow:hidden;--c:#6EBEFF}
 .s4 .glow{position:absolute;left:50%;top:36%;width:300px;height:300px;margin:-150px 0 0 -150px;border-radius:50%;background:var(--c);filter:blur(80px);opacity:.5;scale:1;transition:background .7s var(--ease),scale .9s var(--ease)}
 .s4.fin .glow{scale:1.35}
 .s4>*{position:relative}
