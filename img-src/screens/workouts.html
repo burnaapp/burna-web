@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Workouts</title>
+<!-- SportWorkoutsPane: WORKOUTS title, D W M 6M Y picker, the week chart with the flag on a bar, then SportCountingWorkouts. -->
+<link rel="stylesheet" href="phone.css">
+<style>
+  .pad { position: absolute; left: 22px; right: 22px; }
+  /* The segmented control, in glass. */
+  .seg { top: 117px; height: 36px; padding: 2px; border-radius: 99px; background: rgba(118,118,128,.24); display: flex; }
+  .seg span { flex: 1; display: grid; place-items: center; border-radius: 99px; font: 600 13px/1 -apple-system, system-ui, sans-serif; color: #fff; }
+  .seg span.sel { background: rgba(255,255,255,.22); box-shadow: inset 0 0 0 .5px rgba(255,255,255,.25); }
+  /* The heading is hidden while the flag shows; the flag card stands over it. */
+  .chart { top: 285px; height: 250px; }
+  .plot { position: absolute; left: 0; right: 30px; top: 0; height: 226px; }
+  .grid { position: absolute; left: 0; right: 0; height: 0; border-top: .5px solid var(--line); }
+  .ylab { position: absolute; right: -30px; width: 26px; text-align: left; transform: translateY(-50%); font: 500 11px/1 -apple-system, system-ui, sans-serif; color: var(--muted); }
+  .bar { position: absolute; bottom: 0; background: var(--fitness); border-radius: 3px; }
+  .xl { position: absolute; top: 232px; font: 500 11px/1 -apple-system, system-ui, sans-serif; color: var(--muted); }
+  .flagline { position: absolute; width: 1px; top: 0; height: 226px; background: var(--muted); }
+  .flag { position: absolute; top: -82px; padding: 8px 12px; border-radius: 12px; background: var(--card); box-shadow: inset 0 0 0 .5px var(--line); white-space: nowrap; }
+  .flag small { display: block; font-size: 10px; font-weight: 600; letter-spacing: 1.2px; color: var(--muted); }
+  .flag b { font-size: 26px; line-height: 1.1; }
+  .flag em { font-style: normal; font-size: 12px; font-weight: 600; color: var(--muted); margin-left: 4px; }
+  .flag p { font-size: 12px; color: var(--muted); }
+  .list { top: 555px; }
+  .day { font-size: 11px; font-weight: 600; letter-spacing: 1.6px; color: var(--muted); padding: 18px 0 2px; }
+  .w { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: .5px solid var(--line); }
+  .w .t { flex: 1; min-width: 0; }
+  .w .t b { display: block; font-size: 18px; line-height: 1.15; white-space: nowrap; }
+  .w .t small { display: block; font-size: 10px; font-weight: 600; letter-spacing: 1.2px; color: var(--muted); }
+  .fig { display: flex; align-items: baseline; justify-content: flex-end; gap: 3px; }
+  .fig b { font-size: 18px; }
+  .fig small { font-size: 9px; font-weight: 600; color: var(--muted); }
+  .fig.s b { font-size: 22px; color: var(--fitness); }
+</style>
+</head>
+<body>
+<div class="device"><div class="screen">
+  <div class="status"><span class="time">9:41</span></div><div class="island"></div>
+  <div class="navtitle d">WORKOUTS</div>
+
+  <div class="pad seg"><span>D</span><span class="sel">W</span><span>M</span><span>6M</span><span>Y</span></div>
+
+  <div class="pad chart">
+    <div class="plot">
+      <!-- y from 0 to 559 (the top bar x 1.15); grid at 0, 200, 400 -->
+      <div class="grid" style="top:0"></div>
+      <div class="grid" style="top:64.3px"></div><span class="ylab" style="top:64.3px">400</span>
+      <div class="grid" style="top:145.1px"></div><span class="ylab" style="top:145.1px">200</span>
+      <div class="grid" style="top:226px"></div><span class="ylab" style="top:226px">0</span>
+      <!-- 7 day slots of 45.6px; each bar is 80% of its slot. Sat 0, Sun 312, Mon 0, Tue 486, Wed 254, Thu 0, Fri 198. -->
+      <div class="bar" style="left:45.6px;width:36.5px;height:126.1px"></div>
+      <div class="bar" style="left:136.7px;width:36.5px;height:196.5px"></div>
+      <div class="bar" style="left:182.3px;width:36.5px;height:102.7px"></div>
+      <div class="bar" style="left:273.4px;width:36.5px;height:80px"></div>
+      <div class="flagline" style="left:154.4px"></div>
+      <div class="flag bs" style="left:96px"><small>TOTAL</small><b class="d">486</b><em>effort</em><p>Nov 24, 2026</p></div>
+    </div>
+    <span class="xl" style="left:2px">S</span><span class="xl" style="left:45.6px">S</span><span class="xl" style="left:93.1px">M</span><span class="xl" style="left:138.7px">T</span><span class="xl" style="left:184.3px">W</span><span class="xl" style="left:229.9px">T</span><span class="xl" style="left:275.4px">F</span>
+  </div>
+
+  <div class="pad list">
+    <div class="day bs">TODAY NOV 27</div>
+    <div class="w"><div class="t"><b class="d">HIIT</b><small class="bs">6:05 PM</small></div>
+      <div class="fig" style="width:42px"><b class="d">35</b><small class="bs">MIN</small></div><div class="fig" style="width:58px"><b class="d">190</b><small class="bs">KCAL</small></div><div class="fig s" style="width:78px"><b class="d">74</b><small class="bs">EFFORT</small></div></div>
+    <div class="w"><div class="t"><b class="d">RUNNING</b><small class="bs">6:48 AM</small></div>
+      <div class="fig" style="width:42px"><b class="d">28</b><small class="bs">MIN</small></div><div class="fig" style="width:58px"><b class="d">312</b><small class="bs">KCAL</small></div><div class="fig s" style="width:78px"><b class="d">124</b><small class="bs">EFFORT</small></div></div>
+    <div class="day bs">WEDNESDAY NOV 25</div>
+    <div class="w"><div class="t"><b class="d">YOGA</b><small class="bs">8:10 PM</small></div>
+      <div class="fig" style="width:42px"><b class="d">30</b><small class="bs">MIN</small></div><div class="fig" style="width:58px"><b class="d">110</b><small class="bs">KCAL</small></div><div class="fig s" style="width:78px"><b class="d">86</b><small class="bs">EFFORT</small></div></div>
+    <div class="w"><div class="t"><b class="d">CYCLING</b><small class="bs">7:30 AM</small></div>
+      <div class="fig" style="width:42px"><b class="d">45</b><small class="bs">MIN</small></div><div class="fig" style="width:58px"><b class="d">420</b><small class="bs">KCAL</small></div><div class="fig s" style="width:78px"><b class="d">168</b><small class="bs">EFFORT</small></div></div>
+  </div>
+  <div class="home-bar"></div>
+</div></div>
+</body>
+</html>

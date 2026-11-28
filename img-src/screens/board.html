@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Board</title>
+<!-- Home, once joined: SportHomeView top bar + SportWeekPager + SportFFABoard (toggle, PLAYERS header, rows, footer). -->
+<link rel="stylesheet" href="phone.css">
+<style>
+  .lead { display: flex; align-items: flex-end; width: 100%; }
+  .lead .rank small { display: block; font-size: 11px; letter-spacing: 2px; }
+  .lead .rank b { display: block; font-size: 22px; color: var(--grinder); }
+  .lead .lv { margin-left: auto; display: flex; align-items: center; gap: 8px; padding-bottom: 4px; }
+  .lead .lv b { font-size: 22px; }
+  /* SlantBar: a parallelogram track with a parallelogram fill (slant 0.5 of the height). */
+  .slant { position: relative; width: 54px; height: 6px; }
+  .slant i { position: absolute; inset: 0; background: var(--track); clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%); }
+  .slant i + i { right: auto; width: 62%; background: #fff; }
+
+  .content { position: absolute; top: 133px; left: 22px; right: 22px; bottom: 46px; display: flex; flex-direction: column; }
+  .week h4 { font-size: 11px; letter-spacing: 2px; font-weight: 600; color: var(--muted); }
+  .dots { display: flex; margin-top: 12px; }
+  .dots > div { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .dot { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; font-size: 20px; color: var(--fitness); }
+  .dot.on { border-color: var(--fitness); }
+  .dot.today { border-width: 2px; }
+  .dots small { font-size: 10px; letter-spacing: 1px; font-weight: 600; color: var(--muted); }
+  .dots .t small { color: #fff; }
+  .dots .later { opacity: .45; }
+
+  .board { margin-top: 22px; flex: 1; display: flex; flex-direction: column; }
+  .toggle { align-self: center; width: 240px; padding: 3px; border-radius: 99px; background: var(--card); display: flex; }
+  .toggle span { flex: 1; min-height: 34px; display: grid; place-items: center; font-size: 12px; font-weight: 600; letter-spacing: 1.8px; color: var(--muted); border-radius: 99px; }
+  .toggle span.sel { background: #fff; color: var(--ink); }
+  .thead { margin-top: 8px; display: flex; justify-content: space-between; align-items: baseline; padding: 0 8px 8px; border-bottom: 1px solid var(--line); }
+  .thead span { font-size: 11px; font-weight: 600; letter-spacing: 2px; color: var(--muted); }
+  .thead em { font-style: normal; font-size: 9px; font-weight: 600; letter-spacing: 1.4px; color: var(--muted); }
+  .row { display: flex; align-items: center; gap: 10px; padding: 10px 8px; border-bottom: .5px solid var(--line); }
+  .row .n { width: 34px; font-size: 18px; color: var(--muted); }
+  .row .nm { display: flex; align-items: baseline; gap: 8px; flex: 1; min-width: 0; }
+  .row .nm b { font-size: 20px; white-space: nowrap; }
+  .row .nm small { font-size: 10px; font-weight: 600; letter-spacing: 1.4px; }
+  .row .e { font-size: 22px; color: var(--fitness); }
+  .chev { font: 700 13px/1 system-ui, sans-serif; color: var(--muted); }
+  .g1 { color: var(--gold) !important; text-shadow: 0 0 5px rgba(255,199,51,.65); }
+  .g2 { color: var(--silver) !important; text-shadow: 0 0 5px rgba(199,204,214,.65); }
+  .g3 { color: var(--bronze) !important; text-shadow: 0 0 5px rgba(204,128,51,.65); }
+  .more { min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 12px; font-weight: 600; letter-spacing: 2px; color: var(--muted); border-bottom: .5px solid var(--line); }
+  .me { display: flex; align-items: center; gap: 14px; padding: 20px 8px; background: rgba(255,255,255,.18); }
+  .me .n { width: 66px; font-size: 48px; line-height: 1; }
+  .me .who { flex: 1; }
+  .me .who b { display: block; font-size: 30px; line-height: 1.05; }
+  .me .who small { display: block; margin-top: 3px; font-size: 12px; font-weight: 600; letter-spacing: 1.6px; color: var(--grinder); }
+  .me .e { font-size: 40px; color: var(--fitness); }
+  .foot { margin-top: auto; display: flex; align-items: center; padding: 0 8px; gap: 8px; }
+  .foot small { font-size: 12px; font-weight: 600; letter-spacing: 1.8px; color: var(--muted); }
+  .foot b { font-size: 28px; color: var(--yellow); }
+  .quit { margin-left: auto; min-height: 44px; padding: 0 16px; display: grid; place-items: center; border: 1.5px solid var(--down); border-radius: 99px; color: var(--down); font-size: 20px; letter-spacing: 2px; }
+</style>
+</head>
+<body>
+<div class="device"><div class="screen">
+  <div class="status"><span class="time">9:41</span></div><div class="island"></div>
+
+  <div class="topbar">
+    <div class="lead">
+      <div class="rank"><small class="bs muted">RANK</small><b class="d">GRINDER III</b></div>
+      <div class="lv"><b class="d">LV 12</b><div class="slant"><i></i><i></i></div></div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="week">
+      <h4 class="bs">WORKOUTS · THIS WEEK <span class="chev" style="font-size:10px">&#x203A;</span></h4>
+      <div class="dots">
+        <div><span class="dot on d">2</span><small class="bs">S</small></div>
+        <div><span class="dot d"></span><small class="bs">M</small></div>
+        <div><span class="dot on d">2</span><small class="bs">T</small></div>
+        <div><span class="dot on d">2</span><small class="bs">W</small></div>
+        <div><span class="dot d"></span><small class="bs">T</small></div>
+        <div class="t"><span class="dot on today d">2</span><small class="bs">F</small></div>
+        <div class="later"><span class="dot d"></span><small class="bs">S</small></div>
+      </div>
+    </div>
+
+    <div class="board">
+      <div class="toggle bs"><span class="sel">GLOBAL</span><span>FRIENDS</span></div>
+      <div class="thead bs"><span>PLAYERS · 48</span><em>EFFORT</em></div>
+      <div class="row"><span class="n d g1">1</span><span class="nm"><b class="d">PRIYA</b><small class="bs" style="color:var(--beast)">BEAST</small></span><span class="e d">2,940</span><span class="chev">&#x203A;</span></div>
+      <div class="row"><span class="n d g2">2</span><span class="nm"><b class="d">MARCUS</b><small class="bs" style="color:var(--athlete)">ATHLETE</small></span><span class="e d">2,615</span><span class="chev">&#x203A;</span></div>
+      <div class="row"><span class="n d g3">3</span><span class="nm"><b class="d">JESS</b><small class="bs" style="color:var(--athlete)">ATHLETE</small></span><span class="e d">2,402</span><span class="chev">&#x203A;</span></div>
+      <div class="more bs">SEE FULL LEADERBOARD <span class="chev" style="font-size:11px">&#x203A;</span></div>
+      <div class="row"><span class="n d">13</span><span class="nm"><b class="d">DEVON</b><small class="bs" style="color:var(--grinder)">GRINDER</small></span><span class="e d">1,318</span><span class="chev">&#x203A;</span></div>
+      <div class="me"><span class="n d">14</span><span class="who"><b class="d">ALEX</b><small class="bs">GRINDER</small></span><span class="e d">1,250</span><span class="chev">&#x203A;</span></div>
+      <div class="row"><span class="n d">15</span><span class="nm"><b class="d">SAM</b><small class="bs" style="color:var(--charger)">CHARGER</small></span><span class="e d">1,204</span><span class="chev">&#x203A;</span></div>
+      <div class="row" style="border-bottom:0"><span class="n d">16</span><span class="nm"><b class="d">ROWAN</b><small class="bs" style="color:var(--grinder)">GRINDER</small></span><span class="e d">1,147</span><span class="chev">&#x203A;</span></div>
+      <div class="foot"><small class="bs">ENDS IN</small><b class="d">1D 17H</b><span class="quit d">QUIT</span></div>
+    </div>
+  </div>
+  <div class="home-bar"></div>
+</div></div>
+<script>if (location.search.indexOf('bare') >= 0) document.body.classList.add('bare');</script>
+</body>
+</html>

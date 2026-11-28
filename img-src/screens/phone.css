@@ -1,0 +1,57 @@
+/* Phone screen reproductions of the Burna app, for the website. Values come from the SwiftUI source
+   (Sport/SportTheme.swift and the screens). 1 CSS px = 1 iOS point; render at 3x. */
+@font-face { font-family: "Barlow Condensed"; font-weight: 800; src: url(../../fonts/BarlowCondensed-ExtraBold.woff2) format("woff2"); }
+@font-face { font-family: "Barlow Condensed"; font-weight: 700; src: url(../../fonts/BarlowCondensed-Bold.woff2) format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 500; src: url(../../fonts/Barlow-Medium.woff2) format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 600; src: url(../../fonts/Barlow-SemiBold.woff2) format("woff2"); }
+
+:root {
+  --ink: #0A0A0B;        /* Sport.ink */
+  --card: #17171B;       /* Sport.card */
+  --track: #26262B;      /* Sport.track */
+  --line: #3A3A40;       /* Sport.line */
+  --muted: #8C8C93;      /* Sport.muted */
+  --fitness: #A6FF00;    /* Sport.fitness */
+  --yellow: #FAFC4D;     /* Sport.yellow */
+  --up: #4DD973;
+  --down: #FF5C5C;
+  --gold: #FFC733; --silver: #C7CCD6; --bronze: #CC8033;
+  --rookie: #6EBEFF; --mover: #2F80FF; --charger: #2EA854; --grinder: #8847FF;
+  --athlete: #D32CE6; --beast: #EB4B4B; --burna: #FFDD00;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: transparent; }
+body { -webkit-font-smoothing: antialiased; color: #fff; font-family: "Barlow", system-ui, sans-serif; font-weight: 500; line-height: normal; }
+
+/* The device: a plain rounded bezel, no device artwork. */
+.device {
+  width: 413px; height: 872px; padding: 10px; border-radius: 66px;
+  background: #1C1C1F;
+  box-shadow: inset 0 0 0 1.5px #3A3A40, inset 0 0 0 4px #111113;
+}
+.screen {
+  position: relative; width: 393px; height: 852px; overflow: hidden;
+  border-radius: 56px; background: var(--ink);
+}
+/* Rendered without the bezel, to sit behind a sheet in another screen. */
+body.bare .device { padding: 0; background: none; box-shadow: none; border-radius: 0; width: 393px; height: 852px; }
+body.bare .screen { border-radius: 0; }
+body.bare .status, body.bare .island, body.bare .home-bar { visibility: hidden; }
+
+.status { position: absolute; top: 0; left: 0; right: 0; height: 54px; z-index: 5; }
+.status .time { position: absolute; left: 0; width: 138px; top: 19px; text-align: center; font: 600 17px/22px -apple-system, system-ui, sans-serif; letter-spacing: -0.2px; }
+.island { position: absolute; top: 11px; left: 50%; width: 126px; height: 37px; margin-left: -63px; border-radius: 20px; background: #000; z-index: 6; }
+.home-bar { position: absolute; bottom: 8px; left: 50%; width: 139px; height: 5px; margin-left: -69.5px; border-radius: 3px; background: #fff; z-index: 6; }
+
+/* Fonts as the app names them: .sportDisplay(size) and .sportBody(size). */
+.d { font-family: "Barlow Condensed", sans-serif; font-weight: 800; }
+.d7 { font-family: "Barlow Condensed", sans-serif; font-weight: 700; }
+.b { font-family: "Barlow", sans-serif; font-weight: 500; }
+.bs { font-family: "Barlow", sans-serif; font-weight: 600; }
+.muted { color: var(--muted); }
+.fit { color: var(--fitness); }
+.yel { color: var(--yellow); }
+
+/* SportTopBar: minHeight 44, padding 22 / 4 / 8, under the status bar. */
+.topbar { position: absolute; top: 59px; left: 0; right: 0; min-height: 56px; padding: 4px 22px 8px; display: flex; align-items: center; gap: 12px; }
+.navtitle { position: absolute; top: 59px; left: 0; right: 0; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 24px; letter-spacing: 3px; }

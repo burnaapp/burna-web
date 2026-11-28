@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Friends</title>
+<!-- SportFriendsView: the search field in the top bar, then FRIENDS with each friend's rank and latest workout (SportStatus). -->
+<link rel="stylesheet" href="phone.css">
+<style>
+  .search { flex: 1; height: 44px; padding: 0 14px; border-radius: 99px; background: var(--card); display: flex; align-items: center; font-size: 16px; color: var(--muted); }
+  .list { position: absolute; top: 119px; left: 22px; right: 22px; }
+  .h { font-size: 11px; font-weight: 600; letter-spacing: 2px; color: var(--muted); padding: 22px 0 4px; }
+  .p { padding: 10px 0; border-bottom: .5px solid rgba(58,58,64,.5); }
+  .p div { display: flex; align-items: baseline; gap: 8px; }
+  .p b { font-size: 16px; font-weight: 600; }
+  .p small { font-size: 10px; font-weight: 600; letter-spacing: 1.4px; }
+  .p p { margin-top: 2px; font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="device"><div class="screen">
+  <div class="status"><span class="time">9:41</span></div><div class="island"></div>
+  <div class="topbar"><div class="search b">Search friends...</div></div>
+
+  <div class="list">
+    <p class="h bs">FRIENDS · 9</p>
+    <div class="p"><div><b class="bs">Priya</b><small class="bs" style="color:var(--beast)">BEAST</small></div><p class="b">Ran · 2h ago</p></div>
+    <div class="p"><div><b class="bs">Marcus</b><small class="bs" style="color:var(--athlete)">ATHLETE</small></div><p class="b">Rode · 5h ago</p></div>
+    <div class="p"><div><b class="bs">Jess</b><small class="bs" style="color:var(--athlete)">ATHLETE</small></div><p class="b">Lifted · yesterday</p></div>
+    <div class="p"><div><b class="bs">Devon</b><small class="bs" style="color:var(--grinder)">GRINDER</small></div><p class="b">Swam · just now</p></div>
+    <div class="p"><div><b class="bs">Sam</b><small class="bs" style="color:var(--charger)">CHARGER</small></div><p class="b">Did yoga · 12m ago</p></div>
+    <div class="p"><div><b class="bs">Rowan</b><small class="bs" style="color:var(--grinder)">GRINDER</small></div><p class="b">Rowed · 2d ago</p></div>
+    <div class="p"><div><b class="bs">Nadia</b><small class="bs" style="color:var(--mover)">MOVER</small></div><p class="b">Walked · 3h ago</p></div>
+    <div class="p"><div><b class="bs">Theo</b><small class="bs" style="color:var(--charger)">CHARGER</small></div><p class="b">Boxed · yesterday</p></div>
+    <div class="p"><div><b class="bs">Lena</b><small class="bs" style="color:var(--rookie)">ROOKIE</small></div><p class="b">Hiked · 4d ago</p></div>
+  </div>
+  <div class="home-bar"></div>
+</div></div>
+</body>
+</html>
