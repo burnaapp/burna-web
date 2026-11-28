@@ -1,5 +1,5 @@
 // Cloudflare Pages Function for a profile link, burna.win/u/{code}, opened without the app (the app opens the link
-// itself when installed). It serves profile-link.html titled with the player's name, "Sam · Burna", so message apps
+// itself when installed). It serves profile-link.html titled with the player's name, "sam · Burna", so message apps
 // show who the link is for. The name comes from the Burna API, which tells the website nothing else. If the API
 // can't answer quickly, or the code is unknown, the page goes out with its plain "Burna" title.
 //
@@ -17,7 +17,9 @@ async function playerName(code, apiBase) {
     });
     if (!res.ok) return '';
     const body = await res.json();
-    return typeof body.displayName === 'string' ? body.displayName.trim().slice(0, 60) : '';
+    // A username when the API sends one (players pick one in the app), else the profile's name.
+    const name = typeof body.username === 'string' && body.username.trim() ? body.username : body.displayName;
+    return typeof name === 'string' ? name.trim().slice(0, 60) : '';
   } catch {
     return '';
   }
