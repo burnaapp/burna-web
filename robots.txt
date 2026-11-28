@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+Disallow: /img-src/
 Sitemap: https://burna.win/sitemap.xml
