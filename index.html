@@ -26,7 +26,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
 <link rel="preload" href="fonts/BarlowCondensed-ExtraBold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/Barlow-Medium.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=20">
+<link rel="stylesheet" href="style.css?v=23">
 <script>document.documentElement.classList.add('js');addEventListener('load',function(){if(!window.burnaReady)document.documentElement.classList.remove('js')})</script>
 </head>
 <body class="home">
@@ -35,155 +35,95 @@
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="./" aria-label="Burna home"><img src="img/logo.svg?v=2" alt="" width="15" height="30"><span>BURNA</span></a>
-    <nav class="nav-links" aria-label="Sections">
-      <a href="#how">How it works</a><a href="#effort">Effort</a><a href="#ranks">Ranks</a><a href="#friends">Friends</a><a href="#privacy">Privacy</a>
-    </nav>
+    <nav class="nav-links" aria-label="Sections"><a href="#effort">Effort</a><a href="#ranks">Ranks</a><a href="#friends">Friends</a><a href="#titles">Titles</a></nav>
     <a class="btn btn-sm" href="https://apps.apple.com/us/app/burna/id6826509642">Get the app</a>
   </div>
 </header>
 
 <main id="main">
   <section class="hero">
-    <div class="wrap split">
-      <div>
-        <img class="hero-logo" src="img/logo.svg?v=2" alt="Burna" width="64" height="128">
-        <p class="eyebrow">Weekly fitness leaderboard for iPhone</p>
-        <h1><span>One board.</span><span class="y">Every week.</span></h1>
-        <p class="lede">Every workout in Apple Health earns effort. Join this week&rsquo;s leaderboard, stack up effort until Sunday, and where you finish moves your rank, all the way up to BURNA.</p>
-        <div class="actions">
-          <a class="store" href="https://apps.apple.com/us/app/burna/id6826509642"><img src="img/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a>
-          <a class="btn btn-outline" href="#how">How it works</a>
+    <div class="wrap stage">
+      <img class="hero-logo" src="img/logo.svg?v=2" alt="Burna" width="64" height="128">
+      <h1><span>One board.</span> <span class="y">Every week.</span></h1>
+      <p class="sub">Your Apple Health workouts, ranked weekly. Join any time.</p>
+      <div class="actions"><a class="store" href="https://apps.apple.com/us/app/burna/id6826509642"><img src="img/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a></div>
+      <p class="live" id="live">New board every Sunday, 3 AM Pacific</p>
+      <figure class="shot big"><img src="img/screen-board.webp" width="413" height="872" fetchpriority="high" alt="The Burna home screen: this week's leaderboard with 48 players. Priya, Marcus and Jess hold the top three; your row, 14th with 1,250 effort, is highlighted, and the week ends in 1 day 17 hours."></figure>
+    </div>
+  </section>
+
+  <section class="scene" id="effort">
+    <div class="wrap stage">
+      <h2>Every workout <span class="y">counts.</span></h2>
+      <p class="sub">Your body weight never leaves your phone.</p>
+      <div class="effort-grid">
+        <div class="diagram reveal" role="group" aria-label="Active calories and body weight go in, effort comes out">
+          <div class="inputs">
+            <div class="node"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="currentColor" d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-5 3-7 .5 2 1.5 2.500 2 3 .5-2.500 0-5 1-8z"/></svg><b>Calories</b></div>
+            <span class="plus" aria-hidden="true">+</span>
+            <div class="node"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 1 5 5H7a5 5 0 0 1 5-5zM5 9h14l2 12H3z"/></svg><b>Body weight</b><small>stays on phone</small></div>
+          </div>
+          <svg class="arrow" viewBox="0 0 24 48" width="24" height="48" aria-hidden="true"><path d="M12 0v40M4 32l8 10 8-10" fill="none" stroke="currentColor" stroke-width="2.500" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="node out"><b>Effort</b><small>only this is sent</small></div>
         </div>
-        <p class="live" id="live">New board every Sunday, 3 AM Pacific</p>
+        <figure class="shot"><img src="img/screen-effort.webp" width="413" height="872" loading="lazy" decoding="async" alt="The How Effort Works sheet: active calories and your body weight go in, effort comes out. Harder scores more, and every workout in the week adds up."></figure>
       </div>
-      <figure class="shot" style="margin:0">
-        <img src="img/screen-board.webp" width="413" height="872" fetchpriority="high"
-             alt="The Burna home screen: this week's leaderboard with 48 players. Priya, Marcus and Jess hold the top three; your row, 14th with 1,250 effort, is highlighted, and the week ends in 1 day 17 hours.">
-      </figure>
     </div>
   </section>
 
-  <section class="week-band" aria-label="The week at a glance">
-    <div class="wrap">
-      <ul>
-        <li class="reveal"><b class="y">7 days</b><span>Sunday 3 AM to the next Sunday 3 AM, Pacific time.</span></li>
-        <li class="reveal"><b>1 board</b><span>Everyone playing that week, ranked by effort.</span></li>
-        <li class="reveal"><b class="fit">Free</b><span>Nothing to buy, no money and no prizes. You play for your rank.</span></li>
+  <section class="scene" id="ranks">
+    <div class="wrap stage">
+      <h2>Climb <span class="y">the ranks.</span></h2>
+      <p class="sub">Seven ranks. Five steps each.</p>
+      <ol class="stairs reveal" aria-label="Ranks, lowest to highest, ROOKIE to BURNA">
+<li style="--c:var(--rookie);--i:0"><img src="img/ranks/rookie.svg" alt="" width="56" height="54" loading="lazy"><b>ROOKIE</b><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></li>
+<li style="--c:var(--mover);--i:1"><img src="img/ranks/mover.svg" alt="" width="56" height="54" loading="lazy"><b>MOVER</b><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></li>
+<li style="--c:var(--charger);--i:2"><img src="img/ranks/charger.svg" alt="" width="56" height="54" loading="lazy"><b>CHARGER</b><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></li>
+<li style="--c:var(--grinder);--i:3"><img src="img/ranks/grinder.svg" alt="" width="56" height="54" loading="lazy"><b>GRINDER</b><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></li>
+<li style="--c:var(--athlete);--i:4"><img src="img/ranks/athlete.svg" alt="" width="56" height="54" loading="lazy"><b>ATHLETE</b><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></li>
+<li style="--c:var(--beast);--i:5"><img src="img/ranks/beast.svg" alt="" width="56" height="54" loading="lazy"><b>BEAST</b><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></li>
+<li style="--c:var(--burna);--i:6"><img src="img/ranks/burna.svg" alt="" width="56" height="54" loading="lazy"><b>BURNA</b></li>
+      </ol>
+      <p class="cap">Steps I to V, then the next rank.</p>
+      <figure class="shot"><img src="img/screen-rankup.webp" width="413" height="872" loading="lazy" decoding="async" alt="The rank-up screen: RANK UP over the magenta ATHLETE badge with two stars, and the new rank, ATHLETE II."></figure>
+    </div>
+  </section>
+
+  <section class="scene" id="friends">
+    <div class="wrap stage">
+      <h2>Play with <span class="y">friends.</span></h2>
+      <p class="sub">Usernames only. Requests go both ways.</p>
+      <ul class="trio reveal">
+        <li><b>Send a request</b></li><li><b>See their latest workout</b></li><li><b>Friends board</b></li>
       </ul>
+      <figure class="shot"><img src="img/screen-friends.webp" width="413" height="872" loading="lazy" decoding="async" alt="The Friends tab: a search field, then nine friends, each with their rank and latest workout, such as Priya, BEAST, ran 2 hours ago."></figure>
     </div>
   </section>
 
-  <section class="section" id="how">
-    <div class="wrap split">
-      <div>
-        <p class="eyebrow">How it works</p>
-        <h2>Every workout <span class="y">counts.</span></h2>
-        <ol class="steps">
-          <li class="reveal"><span class="n">01</span><h3>Work out your way</h3><p>Runs, rides, classes, lifting. Every workout you record in Apple Health, from Apple Watch or any app that saves to Health, earns effort. Burna only reads your workouts. It never writes to Health.</p></li>
-          <li class="reveal"><span class="n">02</span><h3>Play the week</h3><p>A new leaderboard starts every Sunday at 3 AM Pacific and runs for seven days. Join with one tap, and your effort adds up all week as everyone trains.</p></li>
-          <li class="reveal"><span class="n">03</span><h3>Climb the ranks</h3><p>When the week locks, where you finish moves your rank. Finish high to climb. Slip down the board and you can drop back.</p></li>
-        </ol>
+  <section class="scene" id="titles">
+    <div class="wrap stage">
+      <h2>Unlock <span class="y">titles.</span></h2>
+      <p class="sub">For show only. Never changes your score.</p>
+      <ul class="chips reveal" aria-label="Example titles"><li style="--c:#6EBEFF">IRON LUNGS</li><li style="--c:#2F80FF">UNTOUCHABLE</li><li style="--c:#EB4B4B">THE FINAL BOSS</li><li style="--c:#D32CE6">LOCKED IN</li><li style="--c:#A6FF00">ONE-SHOT WONDER</li><li style="--c:#FFDD00">FULL SEND</li></ul>
+      <div class="xp reveal" role="img" aria-label="A level bar, partly filled">
+        <span class="lvl">LEVEL 12</span><span class="bar"><i></i></span><span class="lvl">13</span>
       </div>
-      <figure class="shot reveal" style="margin:0">
-        <img src="img/screen-workouts.webp" width="413" height="872" loading="lazy" decoding="async"
-             alt="The Workouts screen: a week of effort as green bars, with a flag on Tuesday showing 486 effort, and the day's workouts listed underneath with minutes, calories and effort.">
-      </figure>
+      <p class="cap">Level up as you play.</p>
     </div>
   </section>
 
-  <section class="section" id="effort">
-    <div class="wrap split flip">
-      <div>
-        <p class="eyebrow">Effort</p>
-        <h2>Effort, <span class="y">not calories.</span></h2>
-        <p class="lede">The board ranks effort, not calories, so a smaller player and a bigger player doing the same work score the same.</p>
-        <div class="flow reveal" role="group" aria-label="Two things go in, effort comes out">
-          <div class="in"><b>Active calories</b><p>From each workout in Apple Health.</p></div>
-          <div class="in"><b>Your body weight</b><p>Read from Apple Health. It stays on your phone.</p></div>
-          <div class="op" aria-hidden="true"><span class="v">&darr;</span><span class="h">&rarr;</span></div>
-          <div class="out"><b>Effort</b><p>Worked out on your phone. Only the score is sent.</p></div>
-        </div>
-        <ul class="rules">
-          <li class="reveal"><b>Harder scores more</b><p>Work harder and you score more, whatever your size.</p></li>
-          <li class="reveal"><b>Added up all week</b><p>Every workout this week counts toward your effort.</p></li>
-          <li class="reveal"><b>Real workouts only</b><p>Effort comes straight from real Apple Health workouts. Hand-typed workouts do not count, and any player who looks off can be reported.</p></li>
-        </ul>
-      </div>
-      <figure class="shot reveal" style="margin:0">
-        <img src="img/screen-effort.webp" width="413" height="872" loading="lazy" decoding="async"
-             alt="The How Effort Works sheet: active calories and your body weight go in, effort comes out. Harder scores more, and every workout in the week adds up.">
-      </figure>
-    </div>
-  </section>
-
-  <section class="section" id="ranks">
-    <div class="wrap split">
-      <div>
-        <p class="eyebrow">Ranks</p>
-        <h2>Climb <span class="y">the ranks.</span></h2>
-        <p class="lede">Seven ranks, five steps each, from ROOKIE I all the way to BURNA. Finish high to climb. Slip down the board and you can drop back.</p>
-        <ol class="ladder" reversed aria-label="Ranks, highest first">
-          <li class="burna" style="--c:var(--burna)"><img src="img/ranks/burna.svg" alt="" width="56" height="54" loading="lazy"><b>BURNA</b><span class="steps-of">TOP RANK</span></li>
-          <li class="beast" style="--c:var(--beast)"><img src="img/ranks/beast.svg" alt="" width="56" height="54" loading="lazy"><b>BEAST</b><span class="steps-of" aria-label="Steps one to five">I&ensp;II&ensp;III&ensp;IV&ensp;V</span></li>
-          <li class="athlete" style="--c:var(--athlete)"><img src="img/ranks/athlete.svg" alt="" width="56" height="54" loading="lazy"><b>ATHLETE</b><span class="steps-of" aria-label="Steps one to five">I&ensp;II&ensp;III&ensp;IV&ensp;V</span></li>
-          <li style="--c:var(--grinder)"><img src="img/ranks/grinder.svg" alt="" width="56" height="54" loading="lazy"><b>GRINDER</b><span class="steps-of" aria-label="Steps one to five">I&ensp;II&ensp;III&ensp;IV&ensp;V</span></li>
-          <li style="--c:var(--charger)"><img src="img/ranks/charger.svg" alt="" width="56" height="54" loading="lazy"><b>CHARGER</b><span class="steps-of" aria-label="Steps one to five">I&ensp;II&ensp;III&ensp;IV&ensp;V</span></li>
-          <li style="--c:var(--mover)"><img src="img/ranks/mover.svg" alt="" width="56" height="54" loading="lazy"><b>MOVER</b><span class="steps-of" aria-label="Steps one to five">I&ensp;II&ensp;III&ensp;IV&ensp;V</span></li>
-          <li style="--c:var(--rookie)"><img src="img/ranks/rookie.svg" alt="" width="56" height="54" loading="lazy"><b>ROOKIE</b><span class="steps-of" aria-label="Steps one to five">I&ensp;II&ensp;III&ensp;IV&ensp;V</span></li>
-        </ol>
-        <p class="note">Everyone starts at ROOKIE. Each rank has five steps, shown as Roman numerals, and the next rank comes after the fifth. Levels and titles are for show and never change your score.</p>
-      </div>
-      <figure class="shot reveal" style="margin:0">
-        <img src="img/screen-rankup.webp" width="413" height="872" loading="lazy" decoding="async"
-             alt="The rank-up screen: RANK UP over the magenta ATHLETE badge with two stars, and the new rank, ATHLETE II.">
-      </figure>
-    </div>
-  </section>
-
-  <section class="section" id="friends">
-    <div class="wrap split flip">
-      <div>
-        <p class="eyebrow">Friends</p>
-        <h2>Bring your <span class="y">friends.</span></h2>
-        <p class="lede">Add friends, see their latest workouts and find them on the board. Rather keep your workouts to yourself? Turn off Share my workouts and they stay private.</p>
-        <ul class="points">
-          <li class="reveal"><b>Find anyone</b><p>Search by username and send a friend request. You become friends when they accept it.</p></li>
-          <li class="reveal"><b>See what they did</b><p>Each friend shows their rank and, when they share it, their latest workout: ran two hours ago, lifted yesterday.</p></li>
-          <li class="reveal"><b>Friends on the board</b><p>Switch the leaderboard from Global to Friends and it is just you and your friends.</p></li>
-        </ul>
-      </div>
-      <figure class="shot reveal" style="margin:0">
-        <img src="img/screen-friends.webp" width="413" height="872" loading="lazy" decoding="async"
-             alt="The Friends tab: a search field, then nine friends, each with their rank and latest workout, such as Priya, BEAST, ran 2 hours ago.">
-      </figure>
-    </div>
-  </section>
-
-  <section class="section privacy-band" id="privacy">
+  <section class="trust" aria-label="Good to know">
     <div class="wrap">
-      <p class="eyebrow">Privacy</p>
-      <h2>Your body weight <span class="y">never leaves your phone.</span></h2>
-      <ul class="privacy-grid">
-        <li class="reveal"><b>Only effort is sent</b><p>Your phone reads your body weight, distance and heart rate to work out each workout&rsquo;s effort. Only the effort score goes to our server.</p></li>
-        <li class="reveal"><b>Read only</b><p>Burna reads your workouts from Apple Health. It never writes to Health, and you can turn access off any time.</p></li>
-        <li class="reveal"><b>Your workouts, your call</b><p>Turn off Share my workouts and they are hidden from everyone. Block anyone you like; they are not told.</p></li>
-        <li class="reveal"><b>No ads, no tracking</b><p>We do not sell your data, use it for advertising or track you across other apps and websites.</p></li>
-      </ul>
-      <div class="privacy-foot">
-        <img src="img/works-with-apple-health.png" alt="Works with Apple Health" width="159" height="44" loading="lazy">
-        <a href="privacy.html">Read the privacy policy</a>
-      </div>
+      <img src="img/works-with-apple-health.png" alt="Works with Apple Health" width="159" height="44" loading="lazy">
+      <span>No ads. No tracking.</span>
+      <span class="fit">Free</span>
     </div>
   </section>
 
-  <section class="section get" id="get">
-    <div class="wrap">
-      <img class="mark reveal" src="img/logo.svg?v=2" alt="" width="60" height="120" loading="lazy">
+  <section class="scene get" id="get">
+    <div class="wrap stage">
       <h2>Get <span class="y">Burna.</span></h2>
-      <p class="lede">Free on the App Store for iPhone. Sign in, connect Apple Health and join this week&rsquo;s board.</p>
-      <div class="actions">
-        <a class="store" href="https://apps.apple.com/us/app/burna/id6826509642"><img src="img/app-store-badge.svg" alt="Download on the App Store" width="162" height="54" loading="lazy"></a>
-      </div>
+      <div class="actions"><a class="store" href="https://apps.apple.com/us/app/burna/id6826509642"><img src="img/app-store-badge.svg" alt="Download on the App Store" width="162" height="54" loading="lazy"></a></div>
     </div>
   </section>
 </main>
@@ -196,6 +136,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=20" defer></script>
+<script src="app.js?v=21" defer></script>
 </body>
 </html>
