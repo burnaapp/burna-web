@@ -1,1 +1,3 @@
-# Cloudflare Pages redirects. None for now: unknown paths get 404.html.
+# Cloudflare Pages redirects.
+# Old profile links (burna.win/u/...) open the home page.
+/u/*  /  302
