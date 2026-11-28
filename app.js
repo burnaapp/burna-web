@@ -10,21 +10,21 @@
   const screens = $$(".screen");
   const phone = $(".phone");
   const s1 = $(".s1");
-  const kcalEl = $("#kcal"), pctEl = $("#pct"), ringIn = $("#ringIn"), ringOut = $("#ringOut");
+  const effortEl = $("#effort"), gapEl = $("#gap"), ringIn = $("#ringIn"), ringOut = $("#ringOut");
   const workouts = $$(".workout");
-  const prizeEl = $("#prize"), rankEl = $("#rank");
+  const rankEl = $("#rank");
   const rows = Object.fromEntries($$(".lrow").map((r) => [r.dataset.k, r]));
   const names = ["a", "b", "d", "me"]; // order at start: you are 4th
   let confettiFired = false;
 
-  const lvl = $("#lvl"), lvlNames = $$("#lvl-name b"), lvlPips = $$("#lvl-pips i"), lvlPts = $("#lvl-pts");
-  const LVL_TIERS = [2, 3, 4]; // ROOKIE, MOVER, CHARGER
-  const LVL_TO = 520;
+  const lvl = $("#lvl"), lvlNames = $$("#lvl-name b"), lvlPips = $$("#lvl-pips i"), lvlStep = $("#lvl-step");
+  const LVL_STEPS = [4, 5, 1]; // GRINDER IV, GRINDER V, ATHLETE I
   let lvlStage = -1, lvlFired = false;
 
-  const GOAL = 5000, FINAL_KCAL = 2900, DAYS_LEFT = 7, PRIZE = 90;
+  // Step 3: the week's effort before the three workouts land, what they add, and the effort of the player in third.
+  const EFFORT_START = 684, EFFORT_ADDED = 356, THIRD = 1120;
 
-  const MY_SCORE = [8100, 8400, 9250, 9520]; // your total at rank 4, 3, 2, 1
+  const MY_SCORE = [1040, 1160, 1250, 1360]; // your total at rank 4, 3, 2, 1
   function layoutBoard(order) {
     const myRank = order.indexOf("me");
     $("b", rows.me).textContent = MY_SCORE[3 - myRank].toLocaleString("en-US");
@@ -56,18 +56,16 @@
     // step 2: join
     s1.classList.toggle("joined", active === 1 && p > 0.55);
 
-    // step 3: progress
+    // step 3: the week's effort climbs as workouts land; the inner ring closes on the player in third
     const e = reduced ? 1 : ease(clamp((active === 2 ? p : active > 2 ? 1 : 0) / 0.85));
-    const DAY_GOAL = 450, DAY_KCAL = 340;
-    const kcal = Math.round(DAY_KCAL * e);
-    kcalEl.textContent = kcal.toLocaleString("en-US");
-    const need = Math.max(0, DAY_GOAL - kcal);
-    pctEl.textContent = need ? "NEED " + need : "GOAL HIT";
-    ringIn.style.strokeDasharray = (kcal / DAY_GOAL * 100).toFixed(1) + " 100";
-    ringOut.style.strokeDasharray = (Math.min(1, kcal / 500) * 100 * 0.62).toFixed(1) + " 100";
+    const effort = Math.round(EFFORT_START + EFFORT_ADDED * e);
+    effortEl.textContent = effort.toLocaleString("en-US");
+    gapEl.textContent = Math.max(0, THIRD - effort) + " TO #3";
+    ringIn.style.strokeDasharray = (effort / THIRD * 100).toFixed(1) + " 100";
+    ringOut.style.strokeDasharray = (40 + 22 * e).toFixed(1) + " 100"; // how much of the week has gone
     [0.18, 0.42, 0.66].forEach((t, i) => workouts[i].classList.toggle("in", (active === 2 && p > t) || active > 2));
 
-    // step 4: win
+    // step 4: climb the board
     const q = active === 3 ? p : active > 3 ? 1 : 0;
     let order = ["a", "b", "d", "me"];
     if (q > 0.10) order = ["a", "b", "me", "d"];
@@ -76,13 +74,12 @@
     layoutBoard(order);
     const myRank = order.indexOf("me") + 1;
     rankEl.textContent = "#" + myRank;
-    $(".rank span").textContent = myRank === 1 ? "YOU WON" : "CLIMBING";
+    $(".rank span").textContent = myRank === 1 ? "TOP OF THE BOARD" : "CLIMBING";
     const won = myRank === 1;
-    prizeEl.textContent = (won ? PRIZE : 0).toLocaleString("en-US");
     if (won && active === 3 && !confettiFired && !reduced) { confettiFired = true; burst(); }
     if (!won) confettiFired = false;
 
-    // step 5: rank up, from ROOKIE through MOVER to CHARGER
+    // step 5: rank up, from GRINDER IV through GRINDER V to ATHLETE I
     const r = active === 4 ? p : 0;
     const lvlIdx = reduced ? 2 : r < 0.22 ? 0 : r < 0.5 ? 1 : 2;
     if (lvlIdx !== lvlStage) {
@@ -94,17 +91,13 @@
       });
       lvl.style.setProperty("--c", lvlNames[lvlIdx].dataset.c);
       lvlPips.forEach((el, i) => {
-        el.classList.toggle("on", i < LVL_TIERS[lvlIdx]);
-        el.classList.toggle("here", i === LVL_TIERS[lvlIdx] - 1);
+        el.classList.toggle("on", i < LVL_STEPS[lvlIdx]);
+        el.classList.toggle("here", i === LVL_STEPS[lvlIdx] - 1);
       });
+      lvlStep.textContent = LVL_STEPS[lvlIdx];
     }
     const fin = active === 4 && (reduced || r > 0.62);
     lvl.classList.toggle("fin", fin);
-    // Points stay inside the current rank's band: ROOKIE 150-249, MOVER 250-499, CHARGER 500+.
-    const BANDS = [[160, 245, 0, 0.22], [255, 490, 0.22, 0.5], [505, 520, 0.5, 0.62]];
-    const [lo, hi, t0, t1] = BANDS[lvlIdx];
-    const pts = reduced ? LVL_TO : lo + (hi - lo) * ease(clamp((r - t0) / (t1 - t0)));
-    lvlPts.textContent = Math.round(pts).toLocaleString("en-US");
     if (fin && !lvlFired && !reduced) { lvlFired = true; lvlBurst(lvlNames[2].dataset.c); }
     if (active !== 4) lvlFired = false;
   }
