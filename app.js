@@ -1,169 +1,63 @@
+// Burna website: the time left in this week's game, and sections rising into place as they scroll in.
+
 (function () {
-  const $ = (s, el = document) => el.querySelector(s);
-  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-  const ease = (t) => 1 - Math.pow(1 - t, 3);
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.burnaReady = true;
 
-
-  const steps = $$(".step");
-  const screens = $$(".screen");
-  const phone = $(".phone");
-  const s1 = $(".s1");
-  const effortEl = $("#effort"), gapEl = $("#gap"), ringIn = $("#ringIn"), ringOut = $("#ringOut");
-  const workouts = $$(".workout");
-  const rankEl = $("#rank");
-  const rows = Object.fromEntries($$(".lrow").map((r) => [r.dataset.k, r]));
-  const names = ["a", "b", "d", "me"]; // order at start: you are 4th
-  let confettiFired = false;
-
-  const lvl = $("#lvl"), lvlNames = $$("#lvl-name b"), lvlPips = $$("#lvl-pips i"), lvlStep = $("#lvl-step");
-  const LVL_STEPS = [4, 5, 1]; // GRINDER IV, GRINDER V, ATHLETE I
-  let lvlStage = -1, lvlFired = false;
-
-  // Step 3: the week's effort before the three workouts land, what they add, and the effort of the player in third.
-  const EFFORT_START = 684, EFFORT_ADDED = 356, THIRD = 1120;
-
-  const MY_SCORE = [1040, 1160, 1250, 1360]; // your total at rank 4, 3, 2, 1
-  function layoutBoard(order) {
-    const myRank = order.indexOf("me");
-    $("b", rows.me).textContent = MY_SCORE[3 - myRank].toLocaleString("en-US");
-    order.forEach((k, i) => {
-      rows[k].style.transform = `translateY(${i * 48}px)`;
-      $("em", rows[k]).textContent = i + 1;
-    });
-  }
-  layoutBoard(names);
-
-  function render() {
-    const vh = innerHeight;
-    const anchor = innerWidth <= 860 ? vh * 0.74 : vh * 0.5;
-    let active = 0, p = 0;
-    steps.forEach((el, i) => {
-      const r = el.getBoundingClientRect();
-      if (r.top <= anchor && r.bottom > anchor) { active = i; p = clamp((anchor - r.top) / r.height); }
-      else if (r.top > anchor && i === 0) { active = 0; p = 0; }
-      else if (r.bottom <= anchor && i === steps.length - 1) { active = i; p = 1; }
-    });
-    steps.forEach((el, i) => el.classList.toggle("on", i === active));
-    screens.forEach((el, i) => el.classList.toggle("on", i === active));
-    // On phones the mockup scales to the room the pinned stage actually has (browser bars change it).
-    const stage = $(".stage");
-    const fit = innerWidth <= 860 && stage ? Math.min(0.62, Math.max(0.3, (stage.clientHeight - 84) / 660)) : 1;
-    phone.style.transform = innerWidth <= 860
-      ? `scale(${fit.toFixed(3)}) rotate(${-2 + active}deg)` : `rotate(${-2 + active * 1.4}deg)`;
-
-    // step 2: join
-    s1.classList.toggle("joined", active === 1 && p > 0.55);
-
-    // step 3: the week's effort climbs as workouts land; the inner ring closes on the player in third
-    const e = reduced ? 1 : ease(clamp((active === 2 ? p : active > 2 ? 1 : 0) / 0.85));
-    const effort = Math.round(EFFORT_START + EFFORT_ADDED * e);
-    effortEl.textContent = effort.toLocaleString("en-US");
-    gapEl.textContent = Math.max(0, THIRD - effort) + " TO #3";
-    ringIn.style.strokeDasharray = (effort / THIRD * 100).toFixed(1) + " 100";
-    ringOut.style.strokeDasharray = (40 + 22 * e).toFixed(1) + " 100"; // how much of the week has gone
-    [0.18, 0.42, 0.66].forEach((t, i) => workouts[i].classList.toggle("in", (active === 2 && p > t) || active > 2));
-
-    // step 4: climb the board
-    const q = active === 3 ? p : active > 3 ? 1 : 0;
-    let order = ["a", "b", "d", "me"];
-    if (q > 0.10) order = ["a", "b", "me", "d"];
-    if (q > 0.22) order = ["a", "me", "b", "d"];
-    if (q > 0.36) order = ["me", "a", "b", "d"];
-    layoutBoard(order);
-    const myRank = order.indexOf("me") + 1;
-    rankEl.textContent = "#" + myRank;
-    $(".rank span").textContent = myRank === 1 ? "TOP OF THE BOARD" : "CLIMBING";
-    const won = myRank === 1;
-    if (won && active === 3 && !confettiFired && !reduced) { confettiFired = true; burst(); }
-    if (!won) confettiFired = false;
-
-    // step 5: rank up, from GRINDER IV through GRINDER V to ATHLETE I
-    const r = active === 4 ? p : 0;
-    const lvlIdx = reduced ? 2 : r < 0.22 ? 0 : r < 0.5 ? 1 : 2;
-    if (lvlIdx !== lvlStage) {
-      lvlStage = lvlIdx;
-      lvlNames.forEach((el, i) => {
-        el.style.setProperty("--n", el.dataset.c);
-        el.classList.toggle("cur", i === lvlIdx);
-        el.classList.toggle("past", i < lvlIdx);
+  // Weeks run from Sunday 3 AM to the next Sunday 3 AM, Pacific time, as in the app. Shown as the app shows it: 1D 17H, 5H 12M, 40M.
+  var live = document.getElementById('live');
+  if (live && window.Intl) {
+    var fmt;
+    try {
+      fmt = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/Los_Angeles', hourCycle: 'h23',
+        year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'
       });
-      lvl.style.setProperty("--c", lvlNames[lvlIdx].dataset.c);
-      lvlPips.forEach((el, i) => {
-        el.classList.toggle("on", i < LVL_STEPS[lvlIdx]);
-        el.classList.toggle("here", i === LVL_STEPS[lvlIdx] - 1);
-      });
-      lvlStep.textContent = LVL_STEPS[lvlIdx];
+    } catch (e) { fmt = null; }
+
+    // Milliseconds Pacific time is ahead of UTC at a moment (negative).
+    var offset = function (t) {
+      var p = {};
+      fmt.formatToParts(new Date(t)).forEach(function (x) { p[x.type] = +x.value; });
+      return Date.UTC(p.year, p.month - 1, p.day, p.hour % 24, p.minute, p.second) - Math.floor(t / 1000) * 1000;
+    };
+
+    var left = function () {
+      var now = Date.now();
+      var wall = now + offset(now);                 // Pacific wall clock, as if it were UTC
+      var d = new Date(wall);
+      var day = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+      var end = day + ((7 - d.getUTCDay()) % 7) * 864e5 + 3 * 36e5;
+      if (end <= wall) end += 7 * 864e5;
+      var endUTC = end - offset(end - offset(now)); // the offset in force at the end, in case the clocks change this week
+      var s = Math.max(0, Math.floor((endUTC - now) / 1000));
+      var dd = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
+      return dd > 0 ? dd + 'D ' + h + 'H' : (h > 0 ? h + 'H ' + m + 'M' : m + 'M');
+    };
+
+    if (fmt && fmt.formatToParts) {
+      var label = document.createTextNode('This week ends in ');
+      var value = document.createElement('b');
+      var tick = function () { value.textContent = left(); };
+      tick();
+      live.textContent = '';
+      live.appendChild(label);
+      live.appendChild(value);
+      setInterval(tick, 30000);
     }
-    const fin = active === 4 && (reduced || r > 0.62);
-    lvl.classList.toggle("fin", fin);
-    if (fin && !lvlFired && !reduced) { lvlFired = true; lvlBurst(lvlNames[2].dataset.c); }
-    if (active !== 4) lvlFired = false;
   }
 
-  // Confetti (canvas, no libraries)
-  const cv = $("#confetti");
-  const ctx = cv.getContext("2d");
-  let parts = [], raf = 0;
-  function burst() {
-    parts = Array.from({ length: 90 }, () => ({
-      x: cv.width / 2, y: cv.height * 0.35,
-      vx: (Math.random() - 0.5) * 9, vy: -Math.random() * 9 - 3,
-      s: Math.random() * 7 + 4, r: Math.random() * 6, vr: (Math.random() - 0.5) * 0.4,
-      c: ["#FAFC4D", "#ffffff", "#9c9e1d"][Math.floor(Math.random() * 3)],
-    }));
-    cancelAnimationFrame(raf);
-    const tick = () => {
-      ctx.clearRect(0, 0, cv.width, cv.height);
-      parts.forEach((p) => {
-        p.vy += 0.3; p.x += p.vx; p.y += p.vy; p.r += p.vr;
-        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r);
-        ctx.fillStyle = p.c; ctx.fillRect(-p.s / 2, -p.s, p.s, p.s * 2); ctx.restore();
-      });
-      parts = parts.filter((p) => p.y < cv.height + 30);
-      if (parts.length) raf = requestAnimationFrame(tick);
-    };
-    tick();
+  // Sections rise into place the first time they come into view (the CSS turns this off for reduced motion).
+  var items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    for (var i = 0; i < items.length; i++) items[i].classList.add('in');
+    return;
   }
-
-  // Level-up burst: a ring and slanted shards in the new rank's color.
-  const fx = $("#lvlfx"), fxc = fx.getContext("2d");
-  let shards = [], ring = 0, fxRaf = 0;
-  function lvlBurst(color) {
-    shards = Array.from({ length: 34 }, (_, i) => {
-      const ang = (i / 34) * Math.PI * 2 + (Math.random() - 0.5) * 0.25, sp = Math.random() * 5 + 3;
-      return { x: fx.width / 2, y: fx.height * 0.36, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp, w: Math.random() * 14 + 8,
-               r: Math.random() * 6, vr: (Math.random() - 0.5) * 0.4, life: 1, c: i % 3 === 0 ? "#ffffff" : color };
+  var seen = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      seen.unobserve(e.target);
     });
-    ring = 0;
-    cancelAnimationFrame(fxRaf);
-    const tick = () => {
-      fxc.clearRect(0, 0, fx.width, fx.height);
-      ring += 5;
-      if (ring < 260) {
-        fxc.strokeStyle = color; fxc.globalAlpha = 1 - ring / 260; fxc.lineWidth = 5;
-        fxc.beginPath(); fxc.arc(fx.width / 2, fx.height * 0.36, ring, 0, Math.PI * 2); fxc.stroke();
-      }
-      shards.forEach((s) => {
-        s.vx *= 0.985; s.vy *= 0.985; s.x += s.vx; s.y += s.vy; s.r += s.vr; s.life -= 0.012;
-        fxc.save(); fxc.globalAlpha = Math.max(s.life, 0); fxc.translate(s.x, s.y); fxc.rotate(s.r);
-        fxc.fillStyle = s.c; fxc.fillRect(-s.w / 2, -s.w * 0.17, s.w, s.w * 0.34); fxc.restore();
-      });
-      shards = shards.filter((s) => s.life > 0);
-      if (shards.length || ring < 260) fxRaf = requestAnimationFrame(tick);
-      else fxc.clearRect(0, 0, fx.width, fx.height);
-    };
-    tick();
-  }
-
-  let ticking = false;
-  const onScroll = () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => { render(); ticking = false; });
-  };
-  addEventListener("scroll", onScroll, { passive: true });
-  addEventListener("resize", onScroll);
-  render();
+  }, { rootMargin: '0px 0px -8% 0px' });
+  for (var j = 0; j < items.length; j++) seen.observe(items[j]);
 })();
